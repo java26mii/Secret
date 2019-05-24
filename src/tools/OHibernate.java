@@ -6,6 +6,7 @@
 package tools;
 
 import controllers.DepartmentController;
+import daos.CountryDAO;
 import daos.GeneralDAO;
 import java.math.BigDecimal;
 import models.Country;
@@ -54,16 +55,16 @@ public class OHibernate {
  /**
          * GET ALL
          */
-        GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
-//        DepartmentController dc = new DepartmentController(factory);
-
-        for (Department department : dDao.getData("")) {
-            System.out.println(department.getName());
-            System.out.println(department.getId());
-            System.out.println(department.getManager().getId());
-            System.out.println(department.getLocation().getId());
-
-        }
+//        GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
+////        DepartmentController dc = new DepartmentController(factory);
+//
+//        for (Department department : dDao.getData("")) {
+//            System.out.println(department.getName());
+//            System.out.println(department.getId());
+//            System.out.println(department.getManager().getId());
+//            System.out.println(department.getLocation().getId());
+//
+//        }
 
        
 
@@ -87,5 +88,67 @@ public class OHibernate {
 //        Department department = new Department(new Short("270"));
 //        System.out.println(dDao.saveOrDelete(department, true));
 
+
+
+/**
+ * author erik
+ */
+
+SessionFactory SessionFactory = HibernateUtil.getSessionFactory();
+//        IJobDAO ijdao = new JobDAO(SessionFactory);
+        // TODO code application logic here
+//        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//        System.out.println(SessionFactory);
+        /**
+         * untuk melakukan test insert >>
+         *
+         */
+//        IJobDAO job = new JobDAO(SessionFactory);
+//        Job job1 = new Job("AD_NANY","nani",200,299);
+//        System.out.println(job.insert(job1));    
+
+        
+//        for (Job job : ijdao.search("AD_VP")) {
+//            System.out.println(job.getId());
+//            System.out.println(job.getTitle());
+//            System.out.println(job.getMinSalary());
+//            System.out.println(job.getMaxSalary());
+//        }
+//
+//        for (Job job1 : job.getAll()) {
+//            System.out.println(job1.getId());
+//            System.out.println(job1.getTitle());
+//            System.out.println(job1.getMinSalary());
+//            System.out.println(job1.getMaxSalary());
+//
+//        }
+
+        CountryDAO<Country> cdao = new CountryDAO<>(SessionFactory,Country.class);
+        
+        /**
+         * untuk test getAll menggunakan ""
+         * untuk test getById menggunakan ""
+         * untuk test getSearch tinggal masukkan kata kunci di " "
+         * 
+         */
+//        for (Country country : cdao.getData("AR") ) {
+//            System.out.println(country.getId());
+//            System.out.println(country.getName());
+//            System.out.println(country.getRegion());
+//                      
+//        }
+            
+//           for (Country country : cdao.getData("AM")) {
+//               System.out.println(country.getName());
+//               System.out.println(country.getId());
+//               System.out.println(country.getRegion());
+//        }
+           /**
+            * untuk melakukan delete byId
+            * untuk melakukan insert masukkan value yang akan di insert pada country dan juga ganti boolean menjadi false
+            * untuk melakukan insert masukkan value yang akan di insert pada country dan juga ganti boolean menjadi false
+            */
+          Country country = new Country("AY", "Ameritak", new Region(new BigDecimal(2) ));       
+        System.out.println(cdao.saveOrDelete(country, false));
     }
 }
