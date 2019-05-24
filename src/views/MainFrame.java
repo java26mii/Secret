@@ -5,7 +5,6 @@
  */
 package views;
 
-
 public class MainFrame extends javax.swing.JFrame {
 
     /**
@@ -139,7 +138,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_locationItemActionPerformed
 
     private void departmentItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentItemActionPerformed
-        // TODO add your handling code here:
+        JIDepartment departmentView = new JIDepartment();
+        this.jDesktopPane1.add(departmentView);
+        departmentView.show();
     }//GEN-LAST:event_departmentItemActionPerformed
 
     private void employeeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeItemActionPerformed
@@ -154,7 +155,7 @@ public class MainFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
