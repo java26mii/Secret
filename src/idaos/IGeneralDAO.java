@@ -17,7 +17,7 @@ import org.hibernate.Transaction;
  */
 public interface IGeneralDAO<T> {
 
-    public T getById(BigDecimal id);
+    public T getById(Object id);
 
     public List<T> getData(Object keyword);
 

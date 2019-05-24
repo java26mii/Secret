@@ -39,11 +39,11 @@ public class MainFrame extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 658, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
+            .addGap(0, 413, Short.MAX_VALUE)
         );
 
         jMenu1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, null));
@@ -109,8 +109,8 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jDesktopPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +134,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_countryItemActionPerformed
 
     private void locationItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationItemActionPerformed
-        // TODO add your handling code here:
+        JILocationView locationView = new JILocationView();
+        this.jDesktopPane1.add(locationView);
+        locationView.show();
     }//GEN-LAST:event_locationItemActionPerformed
 
     private void departmentItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentItemActionPerformed

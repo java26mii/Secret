@@ -106,4 +106,9 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         }
         return location;
     }
+
+    @Override
+    public T getById(Object id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
