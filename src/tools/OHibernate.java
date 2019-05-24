@@ -6,7 +6,6 @@
 package tools;
 
 import controllers.DepartmentController;
-import daos.CountryDAO;
 import daos.GeneralDAO;
 import java.math.BigDecimal;
 import models.Country;
@@ -28,15 +27,17 @@ public class OHibernate {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         System.out.println(factory);
 
-        GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
-        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
-
+//        GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
+//        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
+//        for (Region region : gdao.getData("")) {
+//            System.out.println(region.getName());
+//            System.out.println(region.getId());
+//        }
         /* insert */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40), "Antartica"), false));
 
         /* update */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40), "Antartica Region"), false));
-
 //        /* delete */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40)), true));
 //
@@ -48,38 +49,34 @@ public class OHibernate {
 //        }
         /* Location */
         //System.out.println(ldao.getById(new Short("1000")).getCountry());
-
 //        for (Location location : ldao.getData("")) {
 //            System.out.println(location.getId() + " - " + location.getPostalCode());
 //        }
- /**
+        /**
          * GET ALL
          */
-//        GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
-////        DepartmentController dc = new DepartmentController(factory);
-//
-//        for (Department department : dDao.getData("")) {
-//            System.out.println(department.getName());
-//            System.out.println(department.getId());
-//            System.out.println(department.getManager().getId());
-//            System.out.println(department.getLocation().getId());
-//
-//        }
-
-       
+        GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
+        DepartmentController dc = new DepartmentController(factory);
+        for (Department department : dDao.getData("250")) {
+            System.out.println(department.getName());
+            System.out.println(department.getId());
+            System.out.println(department.getManager());
+            System.out.println(department.getLocation());
+            
+        }
 
         /**
          * INSERT
          */
 //        Department department = new Department(new Short("270"), "Bawen");
 //        System.out.println(dDao.saveOrDelete(department, false));
-
-//        System.out.println(dc.save("270", "Bawen","",""));
+//        System.out.println(dc.save("281", "dept", "100", "1700"));
         /**
          * UPDATE
          */
 //        Department department = new Department(new Short("270"), "Bawen Sayang");
 //        System.out.println(dDao.saveOrDelete(department, false));
+//        System.out.println(dc.save("281", "depta", "100", "1700"));
         /**
          * DELETE
          */
@@ -87,14 +84,12 @@ public class OHibernate {
 //        System.out.println(dDao.saveOrDelete(department, true));
 //        Department department = new Department(new Short("270"));
 //        System.out.println(dDao.saveOrDelete(department, true));
-
-
+//        System.out.println(dc.delete("281"));
 
 /**
- * author erik
- */
-
-SessionFactory SessionFactory = HibernateUtil.getSessionFactory();
+         * author erik
+         */
+        SessionFactory SessionFactory = HibernateUtil.getSessionFactory();
 //        IJobDAO ijdao = new JobDAO(SessionFactory);
         // TODO code application logic here
 //        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -107,7 +102,6 @@ SessionFactory SessionFactory = HibernateUtil.getSessionFactory();
 //        Job job1 = new Job("AD_NANY","nani",200,299);
 //        System.out.println(job.insert(job1));    
 
-        
 //        for (Job job : ijdao.search("AD_VP")) {
 //            System.out.println(job.getId());
 //            System.out.println(job.getTitle());
@@ -122,14 +116,12 @@ SessionFactory SessionFactory = HibernateUtil.getSessionFactory();
 //            System.out.println(job1.getMaxSalary());
 //
 //        }
+//        CountryDAO<Country> cdao = new CountryDAO<>(SessionFactory, Country.class);
 
-        CountryDAO<Country> cdao = new CountryDAO<>(SessionFactory,Country.class);
-        
         /**
-         * untuk test getAll menggunakan ""
-         * untuk test getById menggunakan ""
+         * untuk test getAll menggunakan "" untuk test getById menggunakan ""
          * untuk test getSearch tinggal masukkan kata kunci di " "
-         * 
+         *
          */
 //        for (Country country : cdao.getData("AR") ) {
 //            System.out.println(country.getId());
@@ -137,18 +129,37 @@ SessionFactory SessionFactory = HibernateUtil.getSessionFactory();
 //            System.out.println(country.getRegion());
 //                      
 //        }
-            
 //           for (Country country : cdao.getData("AM")) {
 //               System.out.println(country.getName());
 //               System.out.println(country.getId());
 //               System.out.println(country.getRegion());
 //        }
-           /**
-            * untuk melakukan delete byId
-            * untuk melakukan insert masukkan value yang akan di insert pada country dan juga ganti boolean menjadi false
-            * untuk melakukan insert masukkan value yang akan di insert pada country dan juga ganti boolean menjadi false
-            */
-          Country country = new Country("AY", "Ameritak", new Region(new BigDecimal(2) ));       
-        System.out.println(cdao.saveOrDelete(country, false));
+        /**
+         * untuk melakukan delete byId untuk melakukan insert masukkan value
+         * yang akan di insert pada country dan juga ganti boolean menjadi false
+         * untuk melakukan insert masukkan value yang akan di insert pada
+         * country dan juga ganti boolean menjadi false
+         */
+//        Country country = new Country("AY", "Ameritak", new Region(new BigDecimal(2)));
+//        System.out.println(cdao.saveOrDelete(country, false));
+
+        /*Job*/
+        //insert
+//        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 20000, 35000), false));
+        //update
+//        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 25000, 35000), false));
+        //delete
+//        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 25000, 35000), true));
+        //getById
+//        System.out.println(jdao.getById("PU_MAN").getMaxSalary());
+        //getAll
+//        for (Job job : jdao.getData("")) {
+//            System.out.println(job.getTitle()+" - "+job.getMaxSalary());
+//        }
+        //search
+//         for (Job job : jdao.getData("St")) {
+//            System.out.println(job.getTitle()+" - "+job.getMinSalary());
+//        }
+
     }
 }

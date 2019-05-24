@@ -22,7 +22,7 @@ import tools.HibernateUtil;
 public class JIDepartment extends javax.swing.JInternalFrame {
 
     private SessionFactory factory = HibernateUtil.getSessionFactory();
-    IDepartmentController idc = new DepartmentController(factory);
+    IDepartmentController idc = new DepartmentController(factory); 
 
     /**
      * Creates new form JIDepartment
@@ -49,8 +49,8 @@ public class JIDepartment extends javax.swing.JInternalFrame {
         for (int i = 0; i < department.size(); i++) {
             row[0] = department.get(i).getId();
             row[1] = department.get(i).getName();
-//            row[2] = department.get(i).getManager().getId();
-//            row[3] = department.get(i).getLocation().getId();
+            row[2] = department.get(i).getManager();
+            row[3] = department.get(i).getLocation();
             model.addRow(row);
         }
     }
@@ -63,8 +63,8 @@ public class JIDepartment extends javax.swing.JInternalFrame {
         for (int i = 0; i < department.size(); i++) {
             row[0] = department.get(i).getId();
             row[1] = department.get(i).getName();
-//            row[2] = department.get(i).getManager().getId();
-//            row[3] = department.get(i).getLocation().getId();
+            row[2] = department.get(i).getManager();
+            row[3] = department.get(i).getLocation();
             model.addRow(row);
         }
     }
