@@ -28,6 +28,7 @@ public class OHibernate {
         System.out.println(factory);
 
         GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
+        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
 
         /* insert */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40), "Antartica"), false));
@@ -44,6 +45,12 @@ public class OHibernate {
         for (Region region : gdao.getData("")) {
             System.out.println(region.getId() + " - " + region.getName());
         }
+        /* Location */
+        //System.out.println(ldao.getById(new Short("1000")).getCountry());
+
+//        for (Location location : ldao.getData("")) {
+//            System.out.println(location.getId() + " - " + location.getPostalCode());
+//        }
 
     }
 }

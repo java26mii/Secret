@@ -62,7 +62,10 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
             if (transaction != null) {
                 transaction.rollback();
             }
+        } finally {
+            factory.close();
         }
+        
         return objectList;
     }
 
@@ -84,12 +87,13 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
                 transaction.rollback();
             }
         } finally {
-            session.close();
+            factory.close();
         }
+        
         return result;
     }
 
-    public T getById(BigDecimal id) {
+    public T getById(Object id) {
         T location = null;
         session = this.factory.openSession();
         transaction = session.beginTransaction();
@@ -103,12 +107,10 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
             if (transaction != null) {
                 transaction.rollback();
             }
+        }finally {
+            factory.close();
         }
+        
         return location;
-    }
-
-    @Override
-    public T getById(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
