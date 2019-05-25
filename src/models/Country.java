@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Arif Fridasari
+ * @author HP
  */
 @Entity
 @Table(name = "COUNTRIES")
@@ -77,13 +77,15 @@ public class Country implements Serializable {
         return locationList;
     }
 
-    public Country(String Id) {
-        this.Id = Id;
-    }
-
     public void setLocationList(List<Location> locationList) {
         this.locationList = locationList;
     }
+
+    public Country(String Id) {
+        this.Id = Id;
+    }
+    
+    
 
     public Region getRegion() {
         return region;
@@ -100,6 +102,7 @@ public class Country implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(obj instanceof Country)) {
             return false;
         }
@@ -116,7 +119,5 @@ public class Country implements Serializable {
         hash += (Id != null ? Id.hashCode() : 0);
         return hash;
     }
-    
-    
 
 }
