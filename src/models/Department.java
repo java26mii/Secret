@@ -58,26 +58,18 @@ public class Department implements Serializable {
         this.Id = Id;
     }
 
-    public Department(Short Id, String Name, List<Employee> employeeList, Employee manager, Location location) {
-        this.Id = Id;
-        this.Name = Name;
-        this.employeeList = employeeList;
-        this.manager = manager;
-        this.location = location;
-    }
-
     public Department(Short Id, String Name) {
         this.Id = Id;
         this.Name = Name;
     }
 
-    public Department(Short Id, String name, Employee employee, Location location) {
+    public Department(Short Id, String Name, Employee manager, Location location) {
         this.Id = Id;
         this.Name = Name;
-        this.employeeList = employeeList;
         this.manager = manager;
         this.location = location;
     }
+
 
     public Short getId() {
         return Id;

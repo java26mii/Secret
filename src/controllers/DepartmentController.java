@@ -44,7 +44,7 @@ public class DepartmentController<T> implements IDepartmentController {
     @Override
     public String save(String id, String name, String manager_id, String location_id) {
         String result = "";
-        Department department = new Department(Short.parseShort(id), name, new Employee(id), new Location(id));
+        Department department = new Department(new Short(id), name, new Employee(Integer.parseInt(manager_id)), new Location(new Short(location_id)));
         if (gdao.saveOrDelete(department, false)) {
             result = "Success";
         } else {

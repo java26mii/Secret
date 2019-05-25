@@ -27,15 +27,17 @@ public class OHibernate {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         System.out.println(factory);
 
-        GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
-        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
-
+//        GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
+//        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
+//        for (Region region : gdao.getData("")) {
+//            System.out.println(region.getName());
+//            System.out.println(region.getId());
+//        }
         /* insert */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40), "Antartica"), false));
 
         /* update */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40), "Antartica Region"), false));
-
 //        /* delete */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40)), true));
 //
@@ -47,38 +49,32 @@ public class OHibernate {
 //        }
         /* Location */
         //System.out.println(ldao.getById(new Short("1000")).getCountry());
-
 //        for (Location location : ldao.getData("")) {
 //            System.out.println(location.getId() + " - " + location.getPostalCode());
 //        }
- /**
+        /**
          * GET ALL
          */
         GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
-//        DepartmentController dc = new DepartmentController(factory);
-
-        for (Department department : dDao.getData("")) {
-            System.out.println(department.getName());
-            System.out.println(department.getId());
-            System.out.println(department.getManager().getId());
-            System.out.println(department.getLocation().getId());
-
-        }
-
-       
+        DepartmentController dc = new DepartmentController(factory);
+//        for (Department department : dDao.getData("250")) {
+//            System.out.println(department.getName());
+//            System.out.println(department.getId());
+//            System.out.println(department.getManager());
+//        }
 
         /**
          * INSERT
          */
 //        Department department = new Department(new Short("270"), "Bawen");
 //        System.out.println(dDao.saveOrDelete(department, false));
-
-//        System.out.println(dc.save("270", "Bawen","",""));
+//        System.out.println(dc.save("281", "dept", "100", "1700"));
         /**
          * UPDATE
          */
 //        Department department = new Department(new Short("270"), "Bawen Sayang");
 //        System.out.println(dDao.saveOrDelete(department, false));
+//        System.out.println(dc.save("281", "depta", "100", "1700"));
         /**
          * DELETE
          */
@@ -86,6 +82,7 @@ public class OHibernate {
 //        System.out.println(dDao.saveOrDelete(department, true));
 //        Department department = new Department(new Short("270"));
 //        System.out.println(dDao.saveOrDelete(department, true));
+        System.out.println(dc.delete("281"));
 
     }
 }
