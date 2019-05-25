@@ -146,7 +146,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_departmentItemActionPerformed
 
     private void employeeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeItemActionPerformed
-        // TODO add your handling code here:
+        JIEmployeeFrame employeeView = new JIEmployeeFrame();
+        this.jDesktopPane1.add(employeeView);
+        employeeView.show();
     }//GEN-LAST:event_employeeItemActionPerformed
 
     private void jobItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobItemActionPerformed
