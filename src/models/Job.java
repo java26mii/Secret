@@ -22,15 +22,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Arif Fridasari
+ * @author HP
  */
 @Entity
 @Table(name = "JOBS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Job.findAll", query = "SELECT j FROM Job j")
-    , @NamedQuery(name = "Job.findById", query = "SELECT j FROM Job j WHERE j.Id = :Id")
-    , @NamedQuery(name = "Job.findByTitle", query = "SELECT j FROM Job j WHERE j.Title = :Title")
+    , @NamedQuery(name = "Job.findById", query = "SELECT j FROM Job j WHERE j.id = :id")
+    , @NamedQuery(name = "Job.findByTitle", query = "SELECT j FROM Job j WHERE j.title = :title")
     , @NamedQuery(name = "Job.findByMinSalary", query = "SELECT j FROM Job j WHERE j.minSalary = :minSalary")
     , @NamedQuery(name = "Job.findByMaxSalary", query = "SELECT j FROM Job j WHERE j.maxSalary = :maxSalary")})
 public class Job implements Serializable {
@@ -39,10 +39,10 @@ public class Job implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "JOB_ID")
-    private String Id;
+    private String id;
     @Basic(optional = false)
     @Column(name = "JOB_TITLE")
-    private String Title;
+    private String title;
     @Column(name = "MIN_SALARY")
     private Integer minSalary;
     @Column(name = "MAX_SALARY")
@@ -53,29 +53,36 @@ public class Job implements Serializable {
     public Job() {
     }
 
-    public Job(String Id) {
-        this.Id = Id;
+    public Job(String id) {
+        this.id = id;
     }
 
-    public Job(String Id, String Title) {
-        this.Id = Id;
-        this.Title = Title;
+    public Job(String id, String title) {
+        this.id = id;
+        this.title = title;
     }
 
+    public Job(String id, String title, Integer minSalary, Integer maxSalary) {
+        this.id = id;
+        this.title = title;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+    }
+    
     public String getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(String Id) {
-        this.Id = Id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getMinSalary() {
@@ -105,7 +112,7 @@ public class Job implements Serializable {
 
     @Override
     public String toString() {
-       return "models.Job[ Id=" + Id + " ]";
+       return "models.Job[ id=" + id + " ]";
     }
 
     @Override
@@ -115,7 +122,7 @@ public class Job implements Serializable {
             return false;
         }
         Job other = (Job) obj;
-        if ((this.Id == null && other.Id != null) || (this.Id != null && !this.Id.equals(other.Id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -124,7 +131,7 @@ public class Job implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (Id != null ? Id.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 

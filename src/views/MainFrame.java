@@ -151,6 +151,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jobItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobItemActionPerformed
         // TODO add your handling code here:
+        JIJob iJob = new JIJob();
+        this.jDesktopPane1.add(iJob);
+        iJob.show();
     }//GEN-LAST:event_jobItemActionPerformed
 
     /**

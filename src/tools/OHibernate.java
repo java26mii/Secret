@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import models.Country;
 import models.Department;
 import models.Employee;
+import models.Job;
 import models.Location;
 import models.Region;
 import org.hibernate.SessionFactory;
@@ -30,6 +31,7 @@ public class OHibernate {
 
         GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
         GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
+         GeneralDAO<Job> jdao = new GeneralDAO<>(factory, Job.class);
 
         /* insert */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40), "Antartica"), false));
@@ -150,5 +152,28 @@ SessionFactory SessionFactory = HibernateUtil.getSessionFactory();
             */
           Country country = new Country("AY", "Ameritak", new Region(new BigDecimal(2) ));       
         System.out.println(cdao.saveOrDelete(country, false));
+    
+        /*Job*/
+        //insert
+//        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 20000, 35000), false));
+
+        //update
+//        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 25000, 35000), false));
+        
+        //delete
+//        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 25000, 35000), true));
+        
+        //getById
+//        System.out.println(jdao.getById("PU_MAN").getMaxSalary());
+
+        //getAll
+//        for (Job job : jdao.getData("")) {
+//            System.out.println(job.getTitle()+" - "+job.getMaxSalary());
+//        }
+
+        //search
+//         for (Job job : jdao.getData("St")) {
+//            System.out.println(job.getTitle()+" - "+job.getMinSalary());
+//        }
     }
 }
