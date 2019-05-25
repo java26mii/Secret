@@ -22,14 +22,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Arif Fridasari
  */
 @Entity
 @Table(name = "JOBS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Job.findAll", query = "SELECT j FROM Job j")
-    , @NamedQuery(name = "Job.findById", query = "SELECT j FROM Job j WHERE j.id = :id")
+    , @NamedQuery(name = "Job.findById", query = "SELECT j FROM Job j WHERE j.Id = :Id")
     , @NamedQuery(name = "Job.findByTitle", query = "SELECT j FROM Job j WHERE j.Title = :Title")
     , @NamedQuery(name = "Job.findByMinSalary", query = "SELECT j FROM Job j WHERE j.minSalary = :minSalary")
     , @NamedQuery(name = "Job.findByMaxSalary", query = "SELECT j FROM Job j WHERE j.maxSalary = :maxSalary")})
@@ -39,7 +39,7 @@ public class Job implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "JOB_ID")
-    private String id;
+    private String Id;
     @Basic(optional = false)
     @Column(name = "JOB_TITLE")
     private String Title;
@@ -53,21 +53,21 @@ public class Job implements Serializable {
     public Job() {
     }
 
-    public Job(String id) {
-        this.id = id;
+    public Job(String Id) {
+        this.Id = Id;
     }
 
-    public Job(String id, String Title) {
-        this.id = id;
+    public Job(String Id, String Title) {
+        this.Id = Id;
         this.Title = Title;
     }
 
     public String getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     public String getTitle() {
@@ -105,7 +105,7 @@ public class Job implements Serializable {
 
     @Override
     public String toString() {
-       return "models.Job[ id=" + id + " ]";
+       return "models.Job[ Id=" + Id + " ]";
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Job implements Serializable {
             return false;
         }
         Job other = (Job) obj;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.Id == null && other.Id != null) || (this.Id != null && !this.Id.equals(other.Id))) {
             return false;
         }
         return true;
@@ -124,7 +124,7 @@ public class Job implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (Id != null ? Id.hashCode() : 0);
         return hash;
     }
 

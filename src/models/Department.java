@@ -23,14 +23,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Arif Fridasari
  */
 @Entity
 @Table(name = "DEPARTMENTS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
-    , @NamedQuery(name = "Department.findByid", query = "SELECT d FROM Department d WHERE d.id = :id")
+    , @NamedQuery(name = "Department.findById", query = "SELECT d FROM Department d WHERE d.Id = :Id")
     , @NamedQuery(name = "Department.findByName", query = "SELECT d FROM Department d WHERE d.Name = :Name")})
 public class Department implements Serializable {
 
@@ -38,8 +38,8 @@ public class Department implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "DEPARTMENT_ID")
-    private Short id;
-    @Basic(optional = false)
+    private Short Id;
+    @Basic(optional = true)
     @Column(name = "DEPARTMENT_NAME")
     private String Name;
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
@@ -54,21 +54,37 @@ public class Department implements Serializable {
     public Department() {
     }
 
-    public Department(Short id) {
-        this.id = id;
+    public Department(Short Id) {
+        this.Id = Id;
     }
 
-    public Department(Short id, String Name) {
-        this.id = id;
+    public Department(Short Id, String Name, List<Employee> employeeList, Employee manager, Location location) {
+        this.Id = Id;
+        this.Name = Name;
+        this.employeeList = employeeList;
+        this.manager = manager;
+        this.location = location;
+    }
+
+    public Department(Short Id, String Name) {
+        this.Id = Id;
         this.Name = Name;
     }
 
-    public Short getId() {
-        return id;
+    public Department(Short Id, String name, Employee employee, Location location) {
+        this.Id = Id;
+        this.Name = Name;
+        this.employeeList = employeeList;
+        this.manager = manager;
+        this.location = location;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public Short getId() {
+        return Id;
+    }
+
+    public void setId(Short Id) {
+        this.Id = Id;
     }
 
     public String getName() {
@@ -104,34 +120,9 @@ public class Department implements Serializable {
         this.location = location;
     }
 
-//
-//    @Override
-//    public int hashCode() {
-//        int hash = 0;
-//        hash += (departmentid != null ? departmentid.hashCode() : 0);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object object) {
-//        // TODO: Warning - this method won't work in the case the id fields are not set
-//        if (!(object instanceof Department)) {
-//            return false;
-//        }
-//        Department other = (Department) object;
-//        if ((this.departmentid == null && other.departmentid != null) || (this.departmentid != null && !this.departmentid.equals(other.departmentid))) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "models.Department[ departmentid=" + departmentid + " ]";
-//    }
     @Override
     public String toString() {
-        return "models.Department[ id=" + id + " ]";
+        return "models.Department[ Id=" + Id + " ]";
     }
 
     @Override
@@ -141,7 +132,7 @@ public class Department implements Serializable {
             return false;
         }
         Department other = (Department) obj;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.Id == null && other.Id != null) || (this.Id != null && !this.Id.equals(other.Id))) {
             return false;
         }
         return true;
@@ -150,7 +141,7 @@ public class Department implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (Id != null ? Id.hashCode() : 0);
         return hash;
     }
 

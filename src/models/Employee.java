@@ -27,14 +27,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Arif Fridasari
  */
 @Entity
 @Table(name = "EMPLOYEES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-    , @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id")
+    , @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.Id = :Id")
     , @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName")
     , @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
@@ -48,7 +48,7 @@ public class Employee implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "EMPLOYEE_ID")
-    private Integer id;
+    private Integer Id;
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Basic(optional = false)
@@ -85,23 +85,27 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(Integer id) {
-        this.id = id;
+    public Employee(Integer Id) {
+        this.Id = Id;
     }
 
-    public Employee(Integer id, String lastName, String email, Date hireDate) {
-        this.id = id;
+    public Employee(Integer Id, String lastName, String email, Date hireDate) {
+        this.Id = Id;
         this.lastName = lastName;
         this.email = email;
         this.hireDate = hireDate;
     }
 
-    public Integer getid() {
-        return id;
+    public Employee(String id) {
+        this.Id = Id;
     }
 
-    public void setid(Integer id) {
-        this.id = id;
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer Id) {
+        this.Id = Id;
     }
 
     public String getFirstName() {
@@ -200,7 +204,7 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Employee[ id=" + id + " ]";
+        return "models.Employee[ Id=" + Id + " ]";
     }
 
     @Override
@@ -210,7 +214,7 @@ public class Employee implements Serializable {
             return false;
         }
         Employee other = (Employee) obj;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.Id == null && other.Id != null) || (this.Id != null && !this.Id.equals(other.Id))) {
             return false;
         }
         return true;
@@ -219,7 +223,7 @@ public class Employee implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (Id != null ? Id.hashCode() : 0);
         return hash;
     }
 

@@ -22,14 +22,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Arif Fridasari
  */
 @Entity
 @Table(name = "REGIONS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Region.findAll", query = "SELECT r FROM Region r")
-    , @NamedQuery(name = "Region.findByid", query = "SELECT r FROM Region r WHERE r.id = :id")
+    , @NamedQuery(name = "Region.findById", query = "SELECT r FROM Region r WHERE r.Id = :Id")
     , @NamedQuery(name = "Region.findByName", query = "SELECT r FROM Region r WHERE r.Name = :Name")})
 public class Region implements Serializable {
 
@@ -38,7 +38,7 @@ public class Region implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "REGION_ID")
-    private BigDecimal id;
+    private BigDecimal Id;
     @Column(name = "REGION_NAME")
     private String Name;
 
@@ -49,22 +49,22 @@ public class Region implements Serializable {
     public Region() {
     }
 
-    public Region(BigDecimal id) {
-        this.id = id;
+    public Region(BigDecimal Id) {
+        this.Id = Id;
     }
 
     
-    public Region(BigDecimal id, String Name) {
-        this.id = id;
+    public Region(BigDecimal Id, String Name) {
+        this.Id = Id;
         this.Name = Name;
     }
 
     public BigDecimal getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(BigDecimal id) {
-        this.id = id;
+    public void setId(BigDecimal Id) {
+        this.Id = Id;
     }
 
     public String getName() {
@@ -87,7 +87,7 @@ public class Region implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Region[ id=" + id + " ]";
+        return "models.Region[ Id=" + Id + " ]";
     }
 
     @Override
@@ -97,7 +97,7 @@ public class Region implements Serializable {
             return false;
         }
         Region other = (Region) obj;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.Id == null && other.Id != null) || (this.Id != null && !this.Id.equals(other.Id))) {
             return false;
         }
         return true;
@@ -106,7 +106,7 @@ public class Region implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (Id != null ? Id.hashCode() : 0);
         return hash;
     }
 

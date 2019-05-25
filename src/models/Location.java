@@ -23,14 +23,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Arif Fridasari
  */
 @Entity
 @Table(name = "LOCATIONS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
-    , @NamedQuery(name = "Location.findByid", query = "SELECT l FROM Location l WHERE l.id = :id")
+    , @NamedQuery(name = "Location.findById", query = "SELECT l FROM Location l WHERE l.Id = :Id")
     , @NamedQuery(name = "Location.findByStreetAddress", query = "SELECT l FROM Location l WHERE l.streetAddress = :streetAddress")
     , @NamedQuery(name = "Location.findByPostalCode", query = "SELECT l FROM Location l WHERE l.postalCode = :postalCode")
     , @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city")
@@ -41,7 +41,7 @@ public class Location implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "LOCATION_ID")
-    private Short id;
+    private Short Id;
     @Column(name = "STREET_ADDRESS")
     private String streetAddress;
     @Column(name = "POSTAL_CODE")
@@ -60,30 +60,29 @@ public class Location implements Serializable {
     public Location() {
     }
 
-    public Location(Short id) {
-        this.id = id;
+    public Location(Short Id) {
+        this.Id = Id;
     }
 
-    public Location(Short id, String streetAddress, String postalCode, String city, String stateProvince, Country country) {
-        this.id = id;
-        this.streetAddress = streetAddress;
-        this.postalCode = postalCode;
+    public Location(Short Id, String city) {
+        this.Id = Id;
         this.city = city;
-        this.stateProvince = stateProvince;
-        this.country = country;
     }
 
-    public Location(Short id, String city) {
-        this.id = id;
-        this.city = city;
+    public Location(String id) {
+        this.Id = Id;
+    }
+
+    public Location(short parseShort, String street, String postal, String city, String state, Country country) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Short getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setId(Short Id) {
+        this.Id = Id;
     }
 
     public String getStreetAddress() {
@@ -136,10 +135,9 @@ public class Location implements Serializable {
         this.departmentList = departmentList;
     }
 
-
     @Override
     public String toString() {
-        return "models.Location[ id=" + id + " ]";
+        return "models.Location[ Id=" + Id + " ]";
     }
 
     @Override
@@ -149,15 +147,16 @@ public class Location implements Serializable {
             return false;
         }
         Location other = (Location) obj;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.Id == null && other.Id != null) || (this.Id != null && !this.Id.equals(other.Id))) {
             return false;
         }
         return true;
     }
 
     @Override
-    public int hashCode() {int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+    public int hashCode() {
+        int hash = 0;
+        hash += (Id != null ? Id.hashCode() : 0);
         return hash;
     }
 

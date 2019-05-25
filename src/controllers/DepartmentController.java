@@ -7,9 +7,10 @@ package controllers;
 
 import daos.GeneralDAO;
 import icontrollers.IDepartmentController;
-import java.math.BigDecimal;
 import java.util.List;
 import models.Department;
+import models.Employee;
+import models.Location;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -17,7 +18,7 @@ import org.hibernate.SessionFactory;
  *
  * @author Arif Fridasari
  */
-public class DepartmentController implements IDepartmentController {
+public class DepartmentController<T> implements IDepartmentController {
 
     private GeneralDAO<Department> gdao;
 
@@ -32,7 +33,7 @@ public class DepartmentController implements IDepartmentController {
 
     @Override
     public Department getById(String id) {
-        return gdao.getById(new BigDecimal(id));
+        return gdao.getById(new Short(id));
     }
 
     @Override
@@ -42,22 +43,26 @@ public class DepartmentController implements IDepartmentController {
 
     @Override
     public String save(String id, String name, String manager_id, String location_id) {
-        String result = "Data gagal disimpan";
-        if(gdao.saveOrDelete(new Department(), true)){
-            result = "Data berhasil disimpan";
+        String result = "";
+        Department department = new Department(Short.parseShort(id), name, new Employee(id), new Location(id));
+        if (gdao.saveOrDelete(department, false)) {
+            result = "Success";
+        } else {
+            result = "Failed";
         }
         return result;
     }
 
     @Override
     public String delete(String id) {
-        String result = "Data gagal disimpan";
-        if(gdao.saveOrDelete(new Department(), false)){
-            result = "Data berhasil disimpan";
+        String result = "";
+        Department department = new Department(new Short(id));
+        if (gdao.saveOrDelete(department, true)) {
+            result = "Success";
+        } else {
+            result = "Failed";
         }
         return result;
     }
 
-    
-   
 }

@@ -5,6 +5,7 @@
  */
 package tools;
 
+import controllers.DepartmentController;
 import daos.GeneralDAO;
 import java.math.BigDecimal;
 import models.Country;
@@ -17,6 +18,7 @@ import org.hibernate.SessionFactory;
 /**
  *
  * @author Sindi Yulia Wibowo
+ * @Arif Fridasari
  */
 public class OHibernate {
 
@@ -51,6 +53,41 @@ public class OHibernate {
 //        for (Location location : ldao.getData("")) {
 //            System.out.println(location.getId() + " - " + location.getPostalCode());
 //        }
+ /**
+         * GET ALL
+         */
+        GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
+        DepartmentController dc = new DepartmentController(factory);
+
+//        for (Department department : dDao.getData("")) {
+//            System.out.println(department.getName());
+//            System.out.println(department.getId());
+//            System.out.println(department.getManager().getId());
+//            System.out.println(department.getLocation().getId());
+//
+//        }
+
+       
+
+        /**
+         * INSERT
+         */
+//        Department department = new Department(new Short("270"), "Bawen");
+//        System.out.println(dDao.saveOrDelete(department, false));
+
+//        System.out.println(dc.save("270", "Bawen","",""));
+        /**
+         * UPDATE
+         */
+//        Department department = new Department(new Short("270"), "Bawen Sayang");
+//        System.out.println(dDao.saveOrDelete(department, false));
+        /**
+         * DELETE
+         */
+//        Department department = new Department(new Short("270"));
+//        System.out.println(dDao.saveOrDelete(department, true));
+//        Department department = new Department(new Short("270"));
+//        System.out.println(dDao.saveOrDelete(department, true));
 
     }
 }

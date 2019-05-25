@@ -23,14 +23,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Arif Fridasari
  */
 @Entity
 @Table(name = "COUNTRIES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Country.findAll", query = "SELECT c FROM Country c")
-    , @NamedQuery(name = "Country.findById", query = "SELECT c FROM Country c WHERE c.id = :id")
+    , @NamedQuery(name = "Country.findById", query = "SELECT c FROM Country c WHERE c.Id = :Id")
     , @NamedQuery(name = "Country.findByName", query = "SELECT c FROM Country c WHERE c.Name = :Name")})
 public class Country implements Serializable {
 
@@ -38,7 +38,7 @@ public class Country implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "COUNTRY_ID")
-    private String id;
+    private String Id;
     @Column(name = "COUNTRY_NAME")
     private String Name;
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
@@ -50,23 +50,18 @@ public class Country implements Serializable {
     public Country() {
     }
 
-    public Country(String id, String Name, Region region) {
-        this.id = id;
+    public Country(String Id, String Name, Region region) {
+        this.Id = Id;
         this.Name = Name;
         this.region = region;
     }
 
-    public Country(String id) {
-        this.id = id;
-    }
-    
-
     public String getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     public String getName() {
@@ -80,6 +75,10 @@ public class Country implements Serializable {
     @XmlTransient
     public List<Location> getLocationList() {
         return locationList;
+    }
+
+    public Country(String Id) {
+        this.Id = Id;
     }
 
     public void setLocationList(List<Location> locationList) {
@@ -96,17 +95,16 @@ public class Country implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Country[ id=" + id + " ]";
+        return "models.Country[ Id=" + Id + " ]";
     }
 
     @Override
     public boolean equals(Object obj) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(obj instanceof Country)) {
             return false;
         }
         Country other = (Country) obj;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.Id == null && other.Id != null) || (this.Id != null && !this.Id.equals(other.Id))) {
             return false;
         }
         return true;
@@ -115,8 +113,10 @@ public class Country implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (Id != null ? Id.hashCode() : 0);
         return hash;
     }
+    
+    
 
 }
