@@ -1,6 +1,6 @@
 package controllers;
 
-import icontroller.IEmployeeController;
+import icontrollers.IEmployeeController;
 import idaos.IGeneralDAO;
 import daos.GeneralDAO;
 import java.math.BigDecimal;
@@ -55,7 +55,7 @@ public class EmployeeController implements IEmployeeController {
         String result = "Data gagal disimpan";
         try {
             date = formatter.parse(hireDate);
-            if (gdao.saveOrDelete(new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, new java.sql.Date(date.getTime()), new BigDecimal(salary), new BigDecimal(commissionPct), new Department(Short.parseShort(departmentId)), new Employee(Integer.parseInt(managerId)), new Job(jobId)), true)) {
+            if (gdao.saveOrDelete(new Employee(), false)) {
                 result = "Data berhasil di simpan";
             }
         } catch (ParseException ex) {
