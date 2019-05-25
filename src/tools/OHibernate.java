@@ -57,11 +57,13 @@ public class OHibernate {
          */
         GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
         DepartmentController dc = new DepartmentController(factory);
-//        for (Department department : dDao.getData("250")) {
-//            System.out.println(department.getName());
-//            System.out.println(department.getId());
-//            System.out.println(department.getManager());
-//        }
+        for (Department department : dDao.getData("250")) {
+            System.out.println(department.getName());
+            System.out.println(department.getId());
+            System.out.println(department.getManager());
+            System.out.println(department.getLocation());
+            
+        }
 
         /**
          * INSERT
