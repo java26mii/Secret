@@ -17,8 +17,6 @@ import org.hibernate.SessionFactory;
 
 /**
  *
- * @author Sindi Yulia Wibowo
- * @Arif Fridasari
  */
 public class OHibernate {
 
@@ -42,11 +40,11 @@ public class OHibernate {
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40)), true));
 //
 //        /* getById */
-        System.out.println(gdao.getById(new BigDecimal("1")).getName());
-
-        for (Region region : gdao.getData("")) {
-            System.out.println(region.getId() + " - " + region.getName());
-        }
+//        System.out.println(gdao.getById(new BigDecimal("1")).getName());
+//
+//        for (Region region : gdao.getData("")) {
+//            System.out.println(region.getId() + " - " + region.getName());
+//        }
         /* Location */
         //System.out.println(ldao.getById(new Short("1000")).getCountry());
 
@@ -57,15 +55,15 @@ public class OHibernate {
          * GET ALL
          */
         GeneralDAO<Department> dDao = new GeneralDAO<>(factory, Department.class);
-        DepartmentController dc = new DepartmentController(factory);
+//        DepartmentController dc = new DepartmentController(factory);
 
-//        for (Department department : dDao.getData("")) {
-//            System.out.println(department.getName());
-//            System.out.println(department.getId());
-//            System.out.println(department.getManager().getId());
-//            System.out.println(department.getLocation().getId());
-//
-//        }
+        for (Department department : dDao.getData("")) {
+            System.out.println(department.getName());
+            System.out.println(department.getId());
+            System.out.println(department.getManager().getId());
+            System.out.println(department.getLocation().getId());
+
+        }
 
        
 
