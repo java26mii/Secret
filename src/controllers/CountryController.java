@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package controllers;
-import daos.CountryDAO;
+import daos.GeneralDAO;
 import icontrollers.ICountryController;
 import java.util.List;
 import models.Country;
-import idaos.ICountryDAO;
+import idaos.IGeneralDAO;
 import org.hibernate.SessionFactory;
 
 /**
@@ -17,10 +17,10 @@ import org.hibernate.SessionFactory;
  */
 public class CountryController implements ICountryController{
     
-    private CountryDAO<Country> cdao;
+    private GeneralDAO<Country> cdao;
     
 public CountryController(SessionFactory factory) {
-    cdao = new CountryDAO(factory,Country.class);
+    cdao = new GeneralDAO(factory,Country.class);
 }    
     
     @Override

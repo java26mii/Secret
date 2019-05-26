@@ -7,7 +7,7 @@ package icontrollers;
 
 import java.util.List;
 import models.Country;
-import idaos.ICountryDAO;
+import idaos.IGeneralDAO;
 
 
 /**

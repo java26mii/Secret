@@ -5,8 +5,8 @@
  */
 package views;
 
-import controller.CountryController;
-import icontroller.ICountryController;
+import controllers.CountryController;
+import icontrollers.ICountryController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
