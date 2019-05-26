@@ -38,8 +38,9 @@ public class CountryView extends javax.swing.JFrame {
      public void resetTextCountry(){
         txt_Id.setText("");
         Txt_Country.setText("");
-        txt_search.setText("");
+        
         Txt_Region.setText("");
+        txt_Id.setEditable(true);
         btn_insert.setEnabled(true);
 //        cmbCountryID.setText("");
         
@@ -50,7 +51,6 @@ public class CountryView extends javax.swing.JFrame {
         Object[] row = new Object[4];
         List<Country> country = new ArrayList<>();
         country = icc.getAll();
-        
         for (int i = 0; i < country.size(); i++) {
             row[0] = i +1;
             row[1]=country.get(i).getId();
@@ -69,15 +69,15 @@ public class CountryView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)table_Country.getModel();        
         Object[] row = new Object[4];
         List<Country> country = new ArrayList<>();
-        country = icc.getAll();
+        country = icc.search(s);
         if (s.isEmpty()) {
             country = icc.getAll();
         }
         for (int i = 0; i < country.size(); i++) {
-            row[0] = i ++;
+            row[0] = i +1;
             row[1]=country.get(i).getId();
             row[2]=country.get(i).getName();
-            row[3]=country.get(i).getRegion().getId(); 
+            row[3]=country.get(i).getRegion().getName(); 
 //                    + " - " + country.get(i).getRegion().getId()
 //                    + country.get(i).getRegion().getName();
 //                    .getRegionId()
@@ -101,6 +101,8 @@ public class CountryView extends javax.swing.JFrame {
         }
         showTableCountry(s);
     }
+    
+ 
     
     
 
@@ -175,6 +177,9 @@ public class CountryView extends javax.swing.JFrame {
             }
         });
         txt_search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_searchKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_searchKeyTyped(evt);
             }
@@ -298,6 +303,7 @@ public class CountryView extends javax.swing.JFrame {
 
     private void txt_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_searchActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txt_searchActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
@@ -305,14 +311,14 @@ public class CountryView extends javax.swing.JFrame {
         int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin untuk melakukan delete?", "Confirm Delet", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(confirm==JOptionPane.YES_OPTION){
             JOptionPane.showMessageDialog(null, icc.delete(txt_Id.getText()));
-            updateTableCountry("");
+            updateTableCountry();
             resetTextCountry();
         }
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void txt_searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyTyped
         // TODO add your handling code here:
-        updateTableCountry(txt_Id.getText());
+        updateTableCountry(txt_search.getText());
     }//GEN-LAST:event_txt_searchKeyTyped
 
     private void table_CountryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_CountryMouseClicked
@@ -327,6 +333,12 @@ public class CountryView extends javax.swing.JFrame {
         Txt_Region.setText(model.getValueAt(SelectedRowIndex, 3).toString());
         
     }//GEN-LAST:event_table_CountryMouseClicked
+
+    private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
+        // TODO add your handling code here:
+        updateTableCountry(txt_search.getText());
+        System.out.println(txt_search.getText());
+    }//GEN-LAST:event_txt_searchKeyReleased
 
     /**
      * @param args the command line arguments
