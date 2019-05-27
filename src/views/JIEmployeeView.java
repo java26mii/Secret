@@ -147,7 +147,7 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
             if (emp.getManager() == null) {
             jManager.addItem("");
             } else {
-            jManager.addItem(emp.getManager().getId()+ "-" + emp.getManager().getLastName());
+            jManager.addItem(emp.getId()+ "-" + emp.getFirstName());
             }
         }
     }
