@@ -18,7 +18,7 @@ import org.hibernate.SessionFactory;
  *
  * @author Arif Fridasari
  */
-public class DepartmentController<T> implements IDepartmentController {
+public class DepartmentController implements IDepartmentController {
 
     private GeneralDAO<Department> gdao;
 

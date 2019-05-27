@@ -131,10 +131,10 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
     private void getDepartment() {
         for (Department depa : new DepartmentController(factory).getAll()){
 //            jDepartment.addItem(depa.getDepartmentId() + "-" + depa.getDepartmentName());
-            if (depa.getDepartmentId()== null) {
+            if (depa.getId()== null) {
             jDepartment.addItem("");
             } else {
-            jDepartment.addItem(depa.getDepartmentId()+ "-" + depa.getDepartmentName());
+            jDepartment.addItem(depa.getId()+ "-" + depa.getName());
             }
         }
     }
@@ -144,10 +144,10 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
 //            jManager.addItem(emp.getManagerId().getManagerId()+ "-" + emp.getManagerId().getLastName());
 //                for (Employee emp : edao.getData(key)) {
 //            jManager.addItem(emp.getManagerId().getLastName());
-            if (emp.getManagerId() == null) {
+            if (emp.getManager() == null) {
             jManager.addItem("");
             } else {
-            jManager.addItem(emp.getManagerId().getEmployeeId()+ "-" + emp.getManagerId().getLastName());
+            jManager.addItem(emp.getManager().getEmployeeList()+ "-" + emp.getManager().getLastName());
             }
         }
     }
@@ -160,27 +160,27 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < emp.size(); i++) {
             row[0] = nourut();
-            row[1] = emp.get(i).getEmployeeId();
+            row[1] = emp.get(i).getId();
             row[2] = emp.get(i).getFirstName();
             row[3] = emp.get(i).getLastName();
             row[4] = emp.get(i).getEmail();
             row[5] = emp.get(i).getPhoneNumber();
             row[6] = emp.get(i).getHireDate();
-            row[7] = emp.get(i).getJobId().getJobTitle();
+            row[7] = emp.get(i).getJob().getTitle();
             row[8] = emp.get(i).getSalary();
             row[9] = emp.get(i).getCommissionPct();
 //            row[11] = emp.get(i).getDepartmentId().getDepartmentName();
 
-            if (emp.get(i).getManagerId() == null) {
+            if (emp.get(i).getManager() == null) {
                 row[10] = "";
             } else {
-                row[10] = emp.get(i).getManagerId().getLastName();
+                row[10] = emp.get(i).getManager().getLastName();
             }
 //
-            if (emp.get(i).getDepartmentId() == null) {
+            if (emp.get(i).getDepartment() == null) {
                 row[11] = "";
             } else {
-                row[11] = emp.get(i).getDepartmentId().getDepartmentName();
+                row[11] = emp.get(i).getDepartment().getName();
             }
             model.addRow(row);
         }

@@ -27,7 +27,7 @@ public class EmployeeController implements IEmployeeController {
 
     @Override
     public List<Employee> getAll() {
-        return gdao.getData(gdao);
+        return gdao.getData("");
     }
 
     @Override
