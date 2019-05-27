@@ -117,25 +117,25 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
     
     private void getJob() {
         for (Job job : new JobController(factory).getAll()) {
-//            jJob.addItem(job.getJobTitle()+ "-" + job.getJobTitle());
+            jJob.addItem(job.getId()+ "-" + job.getTitle());
 //                for (Job job : jdao.getData(key)) {
 //            jJob.addItem(job.getJobId()+ "-" + job.getJobTitle());
-            if (job.getId()== null) {
-            jJob.addItem("");
-            } else {
-            jJob.addItem(job.getId()+ "-" + job.getTitle());
-            }
+//            if (job.getId()== null) {
+//            jJob.addItem("");
+//            } else {
+//            jJob.addItem(job.getId()+ "-" + job.getTitle());
+//            }
         }
     }
 
     private void getDepartment() {
         for (Department depa : new DepartmentController(factory).getAll()){
-//            jDepartment.addItem(depa.getDepartmentId() + "-" + depa.getDepartmentName());
-            if (depa.getId()== null) {
-            jDepartment.addItem("");
-            } else {
-            jDepartment.addItem(depa.getId()+ "-" + depa.getName());
-            }
+            jDepartment.addItem(depa.getId() + "-" + depa.getName());
+//            if (depa.getId()== null) {
+//            jDepartment.addItem("");
+//            } else {
+//            jDepartment.addItem(depa.getId()+ "-" + depa.getName());
+//            }
         }
     }
 
@@ -486,7 +486,7 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel12))
-                                .addGap(34, 34, 34)
+                                .addGap(67, 67, 67)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSalary)
                                     .addComponent(jCommission)
@@ -533,8 +533,8 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jJob, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
                     .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
