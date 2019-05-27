@@ -31,9 +31,9 @@ public class OHibernate {
     public static void main(String[] args) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         System.out.println(factory);
-        IEmployeeController eco = new EmployeeController(factory);
-        IDepartmentController edo = new DepartmentController(factory);
-        GeneralDAO<Employee> edao = new GeneralDAO<>(factory, Employee.class);
+//        IEmployeeController eco = new EmployeeController(factory);
+//        IDepartmentController edo = new DepartmentController(factory);
+//        GeneralDAO<Employee> edao = new GeneralDAO<>(factory, Employee.class);
 
 //        for (Employee employee : edao.getData("")) {
 //            System.out.println(employee.getFirstName());
@@ -42,9 +42,9 @@ public class OHibernate {
 //            System.out.println(employee.getFirstName());
 //        }
 
-for (Department dep : edo.getAll()) {
-            System.out.println(dep.getId());
-        }
+//for (Department dep : edo.getAll()) {
+//            System.out.println(dep.getId());
+//        }
 
 //        GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
 //        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);

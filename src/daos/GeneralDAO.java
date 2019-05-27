@@ -63,7 +63,7 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
                 transaction.rollback();
             }
         } finally {
-            factory.close();
+            session.close();
         }
         
         return objectList;
@@ -87,7 +87,7 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
                 transaction.rollback();
             }
         } finally {
-            factory.close();
+            session.close();
         }
         
         return result;
@@ -108,7 +108,7 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
                 transaction.rollback();
             }
         }finally {
-            factory.close();
+            session.close();
         }
         
         return location;
