@@ -100,6 +100,10 @@ public class Employee implements Serializable {
         this.Id = Id;
     }
 
+    public Employee(int parseInt, String firstName, String lastName, String email, String phoneNumber, java.sql.Date date, BigDecimal bigDecimal, BigDecimal bigDecimal0, Department department, Employee employee, Job job) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getId() {
         return Id;
     }

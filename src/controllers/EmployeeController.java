@@ -15,7 +15,6 @@ import models.Employee;
 import models.Job;
 import org.hibernate.SessionFactory;
 
-
 public class EmployeeController implements IEmployeeController {
 
     Date date = new Date(); // this object contains the current date value 
@@ -51,22 +50,22 @@ public class EmployeeController implements IEmployeeController {
     }
 
     @Override
-    public String save(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String salary, String commissionPct, String departmentId, String managerId, String jobId) {
+    public String save(String Id, String firstName, String lastName, String email, String phoneNumber, String hireDate, String salary, String commissionPct, String department, String manager, String job) {
         String result = "Data gagal disimpan";
         try {
             date = formatter.parse(hireDate);
-            if (gdao.saveOrDelete(new Employee(), false)) {
+            if (gdao.saveOrDelete(new Employee(Integer.parseInt(Id), firstName, lastName, email, phoneNumber, new java.sql.Date(date.getTime()), new BigDecimal(salary), new BigDecimal(commissionPct), new Department(Short.parseShort(department)), new Employee(Integer.parseInt(manager)), new Job(job)), false)) {
                 result = "Data berhasil di simpan";
             }
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
-
+    }
 //        if (gdao.saveOrDelete(new Employee(id, firstName, lastName, email, phoneNumber, new java.sql.Date(date.getTime()), new BigDecimal(salary), new BigDecimal(commissionPct), new Department(Short.parseShort(department)), new Employee(Integer.parseInt(manager)), new Job(job)) {
 //            return "Data berhasil ditambahkan";
 //        }else{
 //            return result
 //        }    
-    }
+
 }
