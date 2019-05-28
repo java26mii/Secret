@@ -69,15 +69,15 @@ public class Employee implements Serializable {
     @Column(name = "COMMISSION_PCT")
     private BigDecimal commissionPct;
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
     private Department department;
-    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
     private List<Employee> employeeList;
     @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee manager;
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Job job;
     @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Department> departmentList;
@@ -89,19 +89,24 @@ public class Employee implements Serializable {
         this.Id = Id;
     }
 
-    public Employee(Integer Id, String lastName, String email, Date hireDate) {
-        this.Id = Id;
-        this.lastName = lastName;
-        this.email = email;
-        this.hireDate = hireDate;
-    }
 
     public Employee(String id) {
         this.Id = Id;
     }
 
-    public Employee(int parseInt, String firstName, String lastName, String email, String phoneNumber, java.sql.Date date, BigDecimal bigDecimal, BigDecimal bigDecimal0, Department department, Employee employee, Job job) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public Employee(Integer Id, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Department department, Employee manager, Job job) {
+        this.Id = Id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.salary = salary;
+        this.commissionPct = commissionPct;
+        this.department = department;
+        this.manager = manager;
+        this.job = job;
     }
 
     public Integer getId() {

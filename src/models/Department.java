@@ -36,7 +36,7 @@ public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "DEPARTMENT_ID")
     private Short Id;
     @Basic(optional = true)

@@ -56,110 +56,43 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         model.addColumn("Email");
         model.addColumn("Phone Number");
         model.addColumn("Hire Date");
-        model.addColumn("Job ID");
+        model.addColumn("Job");
         model.addColumn("Salary");
         model.addColumn("Commission PCT");
-        model.addColumn("Manager ID");
-        model.addColumn("Department ID");
+        model.addColumn("Manager");
+        model.addColumn("Department");
 
-        showTable();
+        showTable("");
         getDepartment();
         getJob();
         getManager();
-        nourut();
+//        nourut();
 
     }
 
-    public Object nourut() {
-
-        Object[] no = new Object[1];
-        int baris = model.getRowCount();
-        for (int i = 0; i < baris; i++) {
-            String No = String.valueOf(i + 1);
-            model.setValueAt(No + ".", i, 0);
-        }
-        return no;
-    }
-
+//    public Object nourut() {
+//
+//        Object[] no = new Object[1];
+//        int baris = model.getRowCount();
+//        for (int i = 0; i < baris; i++) {
+//            String No = String.valueOf(i + 1);
+//            model.setValueAt(No + ".", i, 0);
+//        }
+//        return no;
+//    }
     public void showTable(String key) {
         DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
+        model.setRowCount(0);
         Object[] row = new Object[12];
         List<Employee> emp = new ArrayList<>();
+        if (key == "") {
+            emp = eco.getAll();
+        }
         emp = eco.search(key);
+//        emp = eco.search(key);
 
         for (int i = 0; i < emp.size(); i++) {
-            row[0] = nourut();
-            row[1] = emp.get(i).getId();
-            row[2] = emp.get(i).getFirstName();
-            row[3] = emp.get(i).getLastName();
-            row[4] = emp.get(i).getEmail();
-            row[5] = emp.get(i).getPhoneNumber();
-            row[6] = emp.get(i).getHireDate();
-            row[7] = emp.get(i).getJob().getTitle();
-            row[8] = emp.get(i).getSalary();
-            row[9] = emp.get(i).getCommissionPct();
-//            row[11] = emp.get(i).getDepartmentId().getDepartmentName();
-
-            if (emp.get(i).getManager()== null) {
-                row[10] = "";
-            } else {
-                row[10] = emp.get(i).getManager().getLastName();
-            }
-//
-            if (emp.get(i).getDepartment() == null) {
-                row[11] = "";
-            } else {
-                row[11] = emp.get(i).getDepartment().getName();
-            }
-            model.addRow(row);
-        }
-    }
-    
-    private void getJob() {
-        for (Job job : new JobController(factory).getAll()) {
-            jJob.addItem(job.getId()+ "-" + job.getTitle());
-//                for (Job job : jdao.getData(key)) {
-//            jJob.addItem(job.getJobId()+ "-" + job.getJobTitle());
-//            if (job.getId()== null) {
-//            jJob.addItem("");
-//            } else {
-//            jJob.addItem(job.getId()+ "-" + job.getTitle());
-//            }
-        }
-    }
-
-    private void getDepartment() {
-        for (Department depa : new DepartmentController(factory).getAll()){
-            jDepartment.addItem(depa.getId() + "-" + depa.getName());
-//            if (depa.getId()== null) {
-//            jDepartment.addItem("");
-//            } else {
-//            jDepartment.addItem(depa.getId()+ "-" + depa.getName());
-//            }
-        }
-    }
-
-    private void getManager() {
-        for (Employee emp : new EmployeeController(factory).getAll()) {
-//            jManager.addItem(emp.getManagerId().getManagerId()+ "-" + emp.getManagerId().getLastName());
-//                for (Employee emp : edao.getData(key)) {
-//            jManager.addItem(emp.getManagerId().getLastName());
-            if (emp.getManager() == null) {
-            jManager.addItem("");
-            } else {
-            jManager.addItem(emp.getId()+ "-" + emp.getFirstName());
-            }
-        }
-    }
-
-    public void showTable() {
-        DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
-        Object[] row = new Object[12];
-        List<Employee> emp = new ArrayList<>();
-        emp = eco.getAll();
-
-        for (int i = 0; i < emp.size(); i++) {
-            row[0] = nourut();
+            row[0] = i + 1;
             row[1] = emp.get(i).getId();
             row[2] = emp.get(i).getFirstName();
             row[3] = emp.get(i).getLastName();
@@ -186,6 +119,75 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         }
     }
 
+    private void getJob() {
+        for (Job job : new JobController(factory).getAll()) {
+            jJob.addItem(job.getId() + "-" + job.getTitle());
+//                for (Job job : jdao.getData(key)) {
+//            jJob.addItem(job.getJobId()+ "-" + job.getJobTitle());
+//            if (job.getId()== null) {
+//            jJob.addItem("");
+//            } else {
+//            jJob.addItem(job.getId()+ "-" + job.getTitle());
+//            }
+        }
+    }
+
+    private void getDepartment() {
+        for (Department depa : new DepartmentController(factory).getAll()) {
+            jDepartment.addItem(depa.getId() + "-" + depa.getName());
+//            if (depa.getId()== null) {
+//            jDepartment.addItem("");
+//            } else {
+//            jDepartment.addItem(depa.getId()+ "-" + depa.getName());
+//            }
+        }
+    }
+
+    private void getManager() {
+        for (Employee emp : new EmployeeController(factory).getAll()) {
+//            jManager.addItem(emp.getManagerId().getManagerId()+ "-" + emp.getManagerId().getLastName());
+//                for (Employee emp : edao.getData(key)) {
+//            jManager.addItem(emp.getManagerId().getLastName());
+//            if (emp.getManager() == null) {
+//            jManager.addItem("");
+//            } else {
+            jManager.addItem(emp.getId() + "-" + emp.getFirstName());
+//            }
+        }
+    }
+
+//    public void showTable() {
+//        DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
+//        Object[] row = new Object[12];
+//        List<Employee> emp = new ArrayList<>();
+//        emp = eco.getAll();
+//
+//        for (int i = 0; i < emp.size(); i++) {
+//            row[0] = nourut();
+//            row[1] = emp.get(i).getId();
+//            row[2] = emp.get(i).getFirstName();
+//            row[3] = emp.get(i).getLastName();
+//            row[4] = emp.get(i).getEmail();
+//            row[5] = emp.get(i).getPhoneNumber();
+//            row[6] = emp.get(i).getHireDate();
+//            row[7] = emp.get(i).getJob().getTitle();
+//            row[8] = emp.get(i).getSalary();
+//            row[9] = emp.get(i).getCommissionPct();
+//            row[11] = emp.get(i).getDepartmentId().getDepartmentName();
+//            if (emp.get(i).getManager() == null) {
+//                row[10] = "";
+//            } else {
+//                row[10] = emp.get(i).getManager().getLastName();
+//            }
+////
+//            if (emp.get(i).getDepartment() == null) {
+//                row[11] = "";
+//            } else {
+//                row[11] = emp.get(i).getDepartment().getName();
+//            }
+//            model.addRow(row);
+//        }
+//    }
 //    public void insert() {
 //        DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
 //        model.setRowCount(0);
@@ -200,15 +202,14 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
 ////        }
 //        showTable(key);
 //    }
-        public void updateTableEmployee(String s) {
-        DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
-        model.setRowCount(0);
-        if (s == "") {
-            showTable();
-        }
-        showTable(s);
-    }
-
+//        public void updateTableEmployee(String key) {
+//        DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
+//        model.setRowCount(0);
+//        if (key == "") {
+//            showTable("");
+//        }
+//        showTable(key);
+//    }
     public void resetText() {
         jID.setText("");
         jFirst.setText("");
@@ -221,7 +222,9 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         jManager.setSelectedIndex(0);
         jDepartment.setSelectedIndex(0);
         btnInsert.setEnabled(true);
-        btnUpdate.setEnabled(true);
+        jDate.setDate(null);
+
+//        btnUpdate.setEnabled(true);
     }
 
     /**
@@ -256,7 +259,6 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        btnUpdate = new javax.swing.JButton();
         btnInsert = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
@@ -266,6 +268,10 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         jSearch = new javax.swing.JTextField();
         jDate = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
+
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -336,7 +342,7 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         jLabel9.setText("Salary");
 
         jManager.setMaximumRowCount(100);
-        jManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager ID" }));
+        jManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose" }));
         jManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jManagerActionPerformed(evt);
@@ -344,28 +350,21 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         });
 
         jDepartment.setMaximumRowCount(100);
-        jDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Department ID" }));
+        jDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose" }));
 
         jJob.setMaximumRowCount(100);
-        jJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Job ID" }));
+        jJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose" }));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Manager ID");
+        jLabel10.setText("Manager");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setText("Department ID");
+        jLabel11.setText("Department");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setText("Job ID");
+        jLabel12.setText("Job");
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnInsert.setText("Insert");
+        btnInsert.setText("Save");
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertActionPerformed(evt);
@@ -391,22 +390,19 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(btnInsert)
-                .addGap(18, 18, 18)
-                .addComponent(btnUpdate)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(btnReset)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
                     .addComponent(btnInsert)
                     .addComponent(btnDelete)
                     .addComponent(btnReset))
@@ -421,7 +417,7 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Salary", "Commission PCT", "Manager ID", "Department ID", "Job ID"
+                "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Salary", "Commission PCT", "Manager", "Department", "Job"
             }
         ));
         tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -442,6 +438,12 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
         jSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jSearchKeyTyped(evt);
+            }
+        });
+
+        jDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDatePropertyChange(evt);
             }
         });
 
@@ -473,7 +475,11 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
                         .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 61, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                                     .addComponent(jLast, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                                     .addComponent(jID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
@@ -492,12 +498,7 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
                                     .addComponent(jCommission)
                                     .addComponent(jManager, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jJob, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 61, Short.MAX_VALUE)))))
+                                    .addComponent(jJob, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -533,11 +534,14 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jJob, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -622,14 +626,7 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
 //        Employee emp = new Employee();
-        String dprtmnid = jDepartment.getSelectedItem().toString();
-        dprtmnid = dprtmnid.substring(0, dprtmnid.indexOf("-"));
-        String jbid = jJob.getSelectedItem().toString();
-        String mngrid = jManager.getSelectedItem().toString();
-        jbid = jbid.substring(0, jbid.indexOf("-"));
-        mngrid = mngrid.substring(0, mngrid.indexOf("-"));
-        date = jDate.getDate();
-        
+
 //        emp.setEmployeeId(new Integer(jID.getText()));
 //        emp.setFirstName(jFirst.getText());
 //        emp.setLastName(jLast.getText());
@@ -641,19 +638,34 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
 //        emp.setDepartmentId(new Department(new Short(dprtmnid)));
 //        emp.setManagerId(new Employee((new Integer(mngrid))));
 //        emp.setJobId(new Job(((jbid))));
-
-        String hiredate = formatter.format(date);
-        int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin mau menambah data?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, eco.save(jID.getText(), jFirst.getText(),
-                    jLast.getText(), jEmail.getText(), jPhone.getText(), hiredate, jSalary.getText(),
-                    jCommission.getText(), dprtmnid, mngrid, jbid));
+        if (jID.getText().equals("") || jFirst.getText().equals("") || jLast.getText().equals("")
+                || jEmail.getText().equals("") || jPhone.getText().equals("") || jDate.getDate() == null
+                || jSalary.getText().equals("") || jCommission.getText().equals("")
+                || jDepartment.getSelectedItem() == ("Choose") || jManager.getSelectedItem() == ("Choose")
+                || jJob.getSelectedItem() == ("Choose")) {
+            JOptionPane.showMessageDialog(null, "Isi semua kolom");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin mau menambah data?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                String dprtmnid = jDepartment.getSelectedItem().toString();
+                dprtmnid = dprtmnid.substring(0, dprtmnid.indexOf("-"));
+                String jbid = jJob.getSelectedItem().toString();
+                String mngrid = jManager.getSelectedItem().toString();
+                jbid = jbid.substring(0, jbid.indexOf("-"));
+                mngrid = mngrid.substring(0, mngrid.indexOf("-"));
+                date = jDate.getDate();
+                String hiredate = formatter.format(date);
+                JOptionPane.showMessageDialog(null, eco.save(jID.getText(), jFirst.getText(),
+                        jLast.getText(), jEmail.getText(), jPhone.getText(), hiredate,
+                        jSalary.getText(), jCommission.getText(), dprtmnid, mngrid, jbid));
 //               if (confirm == JOptionPane.YES_OPTION) {
 //            JOptionPane.showMessageDialog(null, edao.saveOrDelete(emp, false));
 ////            insert();
 //        }
-            resetText();
+                resetText();
+            }
         }
+        showTable("");
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -661,63 +673,27 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void jSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSearchKeyTyped
-        updateTableEmployee(jSearch.getText());
+//        updateTableEmployee(jSearch.getText());
+        showTable(jSearch.getText());
 
     }//GEN-LAST:event_jSearchKeyTyped
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
         DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
         int SelectRowIndex = tblEmployee.getSelectedRow();
-
-        btnInsert.setEnabled(false);
+//        String hire = new Object(model.getValueAt(SelectRowIndex, 7));
         jID.setText(model.getValueAt(SelectRowIndex, 1).toString());
         jFirst.setText(model.getValueAt(SelectRowIndex, 2).toString());
         jLast.setText(model.getValueAt(SelectRowIndex, 3).toString());
         jEmail.setText(model.getValueAt(SelectRowIndex, 4).toString());
         jPhone.setText(model.getValueAt(SelectRowIndex, 5).toString());
-//        jDate.setDate();
-        jJob.setSelectedItem(model.getValueAt(SelectRowIndex, 6).toString());
+        jJob.setSelectedItem(model.getValueAt(SelectRowIndex, 6));
+//        jDate.setDate(new Object(model.getValueAt(SelectRowIndex, 7)));
         jSalary.setText(model.getValueAt(SelectRowIndex, 8).toString());
         jCommission.setText(model.getValueAt(SelectRowIndex, 9).toString());
-        jManager.setSelectedItem(model.getValueAt(SelectRowIndex, 10).toString());
-        jDepartment.setSelectedItem(model.getValueAt(SelectRowIndex, 11).toString());
+        jManager.setSelectedItem(model.getValueAt(SelectRowIndex, 10));
+//        jDepartment.setSelectedIndex(model.getValueAt(SelectRowIndex, 11));
     }//GEN-LAST:event_tblEmployeeMouseClicked
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-//       Employee emp = new Employee();
-        String dprtmnid = jDepartment.getSelectedItem().toString();
-        dprtmnid = dprtmnid.substring(0, dprtmnid.indexOf("-"));
-        String jbid = jJob.getSelectedItem().toString();
-        String mngrid = jManager.getSelectedItem().toString();
-        jbid = jbid.substring(0, jbid.indexOf("-"));
-        mngrid = mngrid.substring(0, mngrid.indexOf("-"));
-        date = jDate.getDate();
-        
-//        emp.setEmployeeId(new Integer(jID.getText()));
-//        emp.setFirstName(jFirst.getText());
-//        emp.setLastName(jLast.getText());
-//        emp.setEmail(jEmail.getText());
-//        emp.setPhoneNumber(jPhone.getText());
-//        emp.setHireDate(jDate.getDate());
-//        emp.setSalary(new BigDecimal(jSalary.getText()));
-//        emp.setCommissionPct(new BigDecimal(jCommission.getText()));
-//        emp.setDepartmentId(new Department(new Short(dprtmnid)));
-//        emp.setManagerId(new Employee((new Integer(mngrid))));
-//        emp.setJobId(new Job(((jbid))));
-
-        String hiredate = formatter.format(date);
-        int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin mau mengubah data?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, eco.save(jID.getText(), jFirst.getText(),
-                    jLast.getText(), jEmail.getText(), jPhone.getText(), hiredate, jSalary.getText(),
-                    jCommission.getText(), dprtmnid, mngrid, jbid));
-//               if (confirm == JOptionPane.YES_OPTION) {
-//            JOptionPane.showMessageDialog(null, edao.saveOrDelete(emp, false));
-////            insert();
-//        }
-            resetText();
-        }
-    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin mau menghapus data?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -740,7 +716,6 @@ public class JIEmployeeView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnReset;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JTextField jCommission;
     private com.toedter.calendar.JDateChooser jDate;
     private javax.swing.JComboBox<String> jDepartment;
