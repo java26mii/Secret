@@ -20,7 +20,7 @@ import tools.HibernateUtil;
  * @author Sekar Ayu Safitri
  */
 public class JIJob extends javax.swing.JInternalFrame {
-    
+
     SessionFactory factory = HibernateUtil.getSessionFactory();
     IJobController ijc = new JobController(factory);
 
@@ -29,10 +29,10 @@ public class JIJob extends javax.swing.JInternalFrame {
      */
     public JIJob() {
         initComponents();
-        showTableJob();
+        showTableJob("");
     }
-    
-    public void resetTextJob(){
+
+    public void resetTextJob() {
         jId.setText("");
         jTitle.setText("");
         jMinSalary.setText("");
@@ -41,50 +41,26 @@ public class JIJob extends javax.swing.JInternalFrame {
         jId.setEditable(true);
         btnInsert.setEnabled(true);
     }
-    
-    private void showTableJob() {
+
+    public void showTableJob(String key) {
         DefaultTableModel model = (DefaultTableModel) jTableResult.getModel();
-        Object[] row = new Object[4];
-        List<Job> job = new ArrayList<>();
-        job = ijc.getAll();
-        for (int i = 0; i < job.size(); i++) {
-            row[0] = job.get(i).getId();
-            row[1] = job.get(i).getTitle();
-//            row[2] = job.get(i).getMinSalary();
-//            row[3] = job.get(i).getMaxSalary();
+        model.setRowCount(0);
+        Object[] row = new Object[5];
+        List<Job> jobs = new ArrayList<>();
+        if (key == "") {
+            jobs = ijc.getAll();
+        }
+        jobs = ijc.search(key);
+        for (int i = 0; i < jobs.size(); i++) {
+            row[0] = i + 1;
+            row[1] = jobs.get(i).getId();
+            row[2] = jobs.get(i).getTitle();
+            row[3] = jobs.get(i).getMinSalary();
+            row[4] = jobs.get(i).getMaxSalary();
             model.addRow(row);
         }
     }
 
-    private void showTableJob(String s) {
-        DefaultTableModel model = (DefaultTableModel) jTableResult.getModel();
-        Object[] row = new Object[4];
-        List<Job> job = new ArrayList<>();
-        job = ijc.getAll();
-        for (int i = 0; i < job.size(); i++) {
-            row[0] = job.get(i).getId();
-            row[1] = job.get(i).getTitle();
-//            row[2] = job.get(i).getMinSalary();
-//            row[3] = job.get(i).getMaxSalary();
-            model.addRow(row);
-        }
-    }
-
-    public void updateTableJob(){
-        DefaultTableModel model = (DefaultTableModel) jTableResult.getModel();
-        model.setRowCount(0);
-        showTableJob();
-    }
-    
-    public void updateTableJob(String s){
-        DefaultTableModel model = (DefaultTableModel) jTableResult.getModel();
-        model.setRowCount(0);
-        if (s == "") {
-            showTableJob();
-        }
-        showTableJob(s);
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,10 +86,15 @@ public class JIJob extends javax.swing.JInternalFrame {
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableResult = new javax.swing.JTable();
+        jReset = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jLabel1.setText("FORM JOB");
 
-        jLabel2.setText("JOB ID");
+        jLabel2.setText("ID");
 
         jLabel3.setText("JOB TITLE");
 
@@ -155,11 +136,11 @@ public class JIJob extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Job Id", "Job Title", "Minimal Salary", "Maximal Salary"
+                "No", "Id", "Job Title", "Minimal Salary", "Maximal Salary"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -172,19 +153,21 @@ public class JIJob extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTableResult);
+        if (jTableResult.getColumnModel().getColumnCount() > 0) {
+            jTableResult.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jReset.setText("RESET");
+        jReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnInsert)
-                .addGap(18, 18, 18)
-                .addComponent(btnUpdate)
-                .addGap(18, 18, 18)
-                .addComponent(btnDelete)
-                .addGap(91, 91, 91))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -198,6 +181,7 @@ public class JIJob extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -205,12 +189,20 @@ public class JIJob extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
                                 .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jMaxSalary)
-                                    .addComponent(jMinSalary, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTitle, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnInsert)
+                                        .addGap(14, 14, 14)
+                                        .addComponent(btnUpdate)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnDelete)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jReset))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jMaxSalary)
+                                        .addComponent(jMinSalary, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTitle, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -234,18 +226,19 @@ public class JIJob extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jMaxSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInsert)
                     .addComponent(btnUpdate)
-                    .addComponent(btnDelete))
-                .addGap(28, 28, 28)
+                    .addComponent(btnDelete)
+                    .addComponent(jReset))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
                     .addComponent(jInputSeacrh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -253,51 +246,64 @@ public class JIJob extends javax.swing.JInternalFrame {
 
     private void jInputSeacrhKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jInputSeacrhKeyReleased
         // TODO add your handling code here:
-        updateTableJob(jInputSeacrh.getText());
+        showTableJob(jInputSeacrh.getText());
     }//GEN-LAST:event_jInputSeacrhKeyReleased
 
     private void jTableResultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableResultMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTableResult.getModel();
         int SelectRowIndex = jTableResult.getSelectedRow();
-        
+
         jId.setEditable(false);
         btnInsert.setEnabled(false);
-        jId.setText(model.getValueAt(SelectRowIndex, 0).toString());
-        jTitle.setText(model.getValueAt(SelectRowIndex, 1).toString());
-        jMinSalary.setText(model.getValueAt(SelectRowIndex, 2).toString());
-        jMaxSalary.setText(model.getValueAt(SelectRowIndex, 3).toString());
+        jId.setText(model.getValueAt(SelectRowIndex, 1).toString());
+        jTitle.setText(model.getValueAt(SelectRowIndex, 2).toString());
+        jMinSalary.setText(model.getValueAt(SelectRowIndex, 3).toString());
+        jMaxSalary.setText(model.getValueAt(SelectRowIndex, 4).toString());
     }//GEN-LAST:event_jTableResultMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        int confirm = JOptionPane.showConfirmDialog(this, "Ingin mengupdate data ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, ijc.save(jId.getText(), jTitle.getText(), jMinSalary.getText(), jMaxSalary.getText()));
-            updateTableJob();
-            resetTextJob();
+        if (jId.getText().equals("") || jTitle.getText().equals("") || jMinSalary.getText().equals("") || jMaxSalary.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Ingin mengupdate data ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, ijc.save(jId.getText(), jTitle.getText(), jMinSalary.getText(), jMaxSalary.getText()));
+                showTableJob("");
+                resetTextJob();
+            }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here:
-          int confirm = JOptionPane.showConfirmDialog(this, "Ingin mengupdate data ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, ijc.save(jId.getText(), jTitle.getText(), jMinSalary.getText(), jMaxSalary.getText()));
-            updateTableJob();
-            resetTextJob();
+        if (jId.getText().equals("") || jTitle.getText().equals("") || jMinSalary.getText().equals("") || jMaxSalary.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Ingin mengupdate data ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, ijc.save(jId.getText(), jTitle.getText(), jMinSalary.getText(), jMaxSalary.getText()));
+                showTableJob("");
+                resetTextJob();
+            }
         }
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-          int confirm = JOptionPane.showConfirmDialog(this, "Ingin mengupdate data ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int confirm = JOptionPane.showConfirmDialog(this, "Ingin mengupdate data ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (confirm == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, ijc.delete(jId.getText()));
-            updateTableJob();
+            showTableJob("");
             resetTextJob();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void jResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jResetActionPerformed
+        // TODO add your handling code here:
+        resetTextJob();
+    }//GEN-LAST:event_jResetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -314,6 +320,7 @@ public class JIJob extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jMaxSalary;
     private javax.swing.JTextField jMinSalary;
+    private javax.swing.JButton jReset;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableResult;
     private javax.swing.JTextField jTitle;

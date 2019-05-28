@@ -40,14 +40,14 @@ public class Job implements Serializable {
     @Basic(optional = false)
     @Column(name = "JOB_ID")
     private String id;
-    @Basic(optional = false)
+//    @Basic(optional = false) //tidak boleh kosong "NOT NULL"
     @Column(name = "JOB_TITLE")
-    private String title;
+    private String title;   
     @Column(name = "MIN_SALARY")
     private Integer minSalary;
     @Column(name = "MAX_SALARY")
     private Integer maxSalary;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "job", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
     public Job() {
@@ -55,11 +55,6 @@ public class Job implements Serializable {
 
     public Job(String id) {
         this.id = id;
-    }
-
-    public Job(String id, String title) {
-        this.id = id;
-        this.title = title;
     }
 
     public Job(String id, String title, Integer minSalary, Integer maxSalary) {

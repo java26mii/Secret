@@ -7,9 +7,11 @@ package tools;
 
 import controllers.DepartmentController;
 import controllers.EmployeeController;
+import controllers.JobController;
 import daos.GeneralDAO;
 import icontrollers.IDepartmentController;
 import icontrollers.IEmployeeController;
+import icontrollers.IJobController;
 import java.math.BigDecimal;
 import java.util.Date;
 import models.Country;
@@ -159,6 +161,9 @@ public class OHibernate {
 //        System.out.println(cdao.saveOrDelete(country, false));
 
         /*Job*/
+        IJobController ijc = new JobController(factory);
+//        GeneralDAO<Job> jdao = new GeneralDAO<>(factory, Job.class);
+        
         //insert
 //        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 20000, 35000), false));
         //update
@@ -175,6 +180,34 @@ public class OHibernate {
 //         for (Job job : jdao.getData("St")) {
 //            System.out.println(job.getTitle()+" - "+job.getMinSalary());
 //        }
+
+        /*Job Controller*/
+        //controller
+        //insert
+//        System.out.println(ijc.save("SA_KAR", "Programmer", "20000", "35000"));
+
+        //update
+//        System.out.println(ijc.save("SA_KAR", "Programmer", "30000", "35000"));
+
+        //delete
+//        System.out.println(ijc.delete("SA_KAR")); //error
+
+        //byId
+//        System.out.println(ijc.getById("SA_KAR").getTitle());
+
+        //search
+//        System.out.println(ijc.search("Program"));
+          for (Job job : ijc.search("Pro")) {
+              System.out.println(job.getId()+" : "+job.getMaxSalary());
+        }
+
+        //getAll
+//        for (Job job : ijc.getAll()) {
+//            System.out.println(job.getTitle());
+//            System.out.println(job.getMinSalary());
+//            System.out.println(job.getMaxSalary());
+//        }
+
 //test EMPLOYEE
 //test getById
 //        System.out.println(edao.getById(new Integer(100)).getFirstName());
