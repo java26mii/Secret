@@ -29,7 +29,7 @@ public class JIRegionView extends javax.swing.JInternalFrame {
      */
     public JIRegionView() {
         initComponents();
-        showTableRegion();
+        showTableRegion("");
     }
 
     public void resetTextRegion() {
@@ -39,11 +39,16 @@ public class JIRegionView extends javax.swing.JInternalFrame {
         insertButton.setEnabled(true);
     }
 
-    public void showTableRegion() {
+
+     public void showTableRegion(String key) {
         DefaultTableModel model = (DefaultTableModel) tableRegion.getModel();
+        model.setRowCount(0);
         Object[] row = new Object[3];
         List<Region> region = new ArrayList<>();
-        region = irc.getAll();
+        if (key == "") {
+            region = irc.getAll();
+        }
+        region = irc.search(key);
         for (int i = 0; i < region.size(); i++) {
             row[0] = i + 1;
             row[1] = region.get(i).getId();
@@ -51,35 +56,7 @@ public class JIRegionView extends javax.swing.JInternalFrame {
             model.addRow(row);
         }
     }
-
-    public void showTableRegion(String s) {
-        DefaultTableModel model = (DefaultTableModel) tableRegion.getModel();
-        Object[] row = new Object[3];
-        List<Region> region = new ArrayList<>();
-        region = irc.search(s);
-        for (int i = 0; i < region.size(); i++) {
-            row[0] = i + 1;
-            row[1] = region.get(i).getId();
-            row[2] = region.get(i).getName();
-            model.addRow(row);
-        }
-    }
-
-    public void updateTableRegion() {
-        DefaultTableModel model = (DefaultTableModel) tableRegion.getModel();
-        model.setRowCount(0);
-        showTableRegion();
-    }
-
-    public void updateTableRegion(String s) {
-        DefaultTableModel model = (DefaultTableModel) tableRegion.getModel();
-        model.setRowCount(0);
-        if (s == "") {
-            showTableRegion();
-        }
-        showTableRegion(s);
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -256,20 +233,29 @@ public class JIRegionView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_inputNameActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(this, "Are You Sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, irc.save(inputId.getText(), inputName.getText()));
-            updateTableRegion();
-            resetTextRegion();
+        if (inputId.getText().equals("") || inputName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are You Sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, irc.save(inputId.getText(), inputName.getText()));
+                showTableRegion("");
+                resetTextRegion();
+            }
         }
+
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(this, "Are You Sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, irc.save(inputId.getText(), inputName.getText()));
-            updateTableRegion();
-            resetTextRegion();
+        if (inputId.getText().equals("") || inputName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are You Sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, irc.save(inputId.getText(), inputName.getText()));
+                showTableRegion("");
+                resetTextRegion();
+            }
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
@@ -277,7 +263,7 @@ public class JIRegionView extends javax.swing.JInternalFrame {
         int confirm = JOptionPane.showConfirmDialog(this, "Are You Sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (confirm == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, irc.delete(inputId.getText()));
-            updateTableRegion();
+            showTableRegion("");
             resetTextRegion();
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
@@ -291,14 +277,14 @@ public class JIRegionView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tableRegionMouseClicked
 
     private void inputsearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputsearchKeyReleased
-        updateTableRegion(inputsearch.getText());
+        showTableRegion(inputsearch.getText());
         System.out.println(inputsearch.getText());
     }//GEN-LAST:event_inputsearchKeyReleased
 
     private void inputsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputsearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputsearchActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField inputId;

@@ -5,10 +5,12 @@
  */
 package tools;
 
+import controllers.AccountController;
 import controllers.DepartmentController;
 import controllers.EmployeeController;
 import controllers.JobController;
 import daos.GeneralDAO;
+import icontrollers.IAccountController;
 import icontrollers.IDepartmentController;
 import icontrollers.IEmployeeController;
 import icontrollers.IJobController;
@@ -162,9 +164,8 @@ public class OHibernate {
 
         /*Job*/
         IJobController ijc = new JobController(factory);
-//        GeneralDAO<Job> jdao = new GeneralDAO<>(factory, Job.class);
+        IAccountController iac = new AccountController(factory);
         
-        //insert
 //        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 20000, 35000), false));
         //update
 //        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 25000, 35000), false));
