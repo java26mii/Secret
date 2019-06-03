@@ -163,9 +163,9 @@ public class OHibernate {
 //        System.out.println(cdao.saveOrDelete(country, false));
 
         /*Job*/
-        IJobController ijc = new JobController(factory);
-        IAccountController iac = new AccountController(factory);
-        
+//        IJobController ijc = new JobController(factory);
+//        IAccountController iac = new AccountController(factory);
+//        
 //        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 20000, 35000), false));
         //update
 //        System.out.println(jdao.saveOrDelete(new Job("SA_KAR", "Programmer", 25000, 35000), false));
@@ -198,9 +198,9 @@ public class OHibernate {
 
         //search
 //        System.out.println(ijc.search("Program"));
-          for (Job job : ijc.search("Pro")) {
-              System.out.println(job.getId()+" : "+job.getMaxSalary());
-        }
+//          for (Job job : ijc.search("Pro")) {
+//              System.out.println(job.getId()+" : "+job.getMaxSalary());
+//        }
 
         //getAll
 //        for (Job job : ijc.getAll()) {
