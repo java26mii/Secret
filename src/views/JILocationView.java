@@ -31,7 +31,7 @@ public class JILocationView extends javax.swing.JInternalFrame {
 
     public JILocationView() {
         initComponents();
-        ShowtableLocations();
+        ShowtableLocations("");
         getCountry(); 
     }
 
@@ -45,29 +45,17 @@ public class JILocationView extends javax.swing.JInternalFrame {
         savebutton.setEnabled(true);
         id.setEditable(true);
     }
-
-    private void ShowtableLocations() {
-        DefaultTableModel model = (DefaultTableModel) tablelocation.getModel();
-        Object[] row = new Object[7];
-        List<Location> Locations = new ArrayList<>();
-        Locations = ilc.getAll();
-        for (int i = 0; i < Locations.size(); i++) {
-            row[0] = i + 1;
-            row[1] = Locations.get(i).getId();
-            row[2] = Locations.get(i).getPostalCode();
-            row[3] = Locations.get(i).getCity();
-            row[4] = Locations.get(i).getStateProvince();
-            row[5] = Locations.get(i).getStreetAddress();
-            row[6] = Locations.get(i).getCountry().getName();
-            model.addRow(row);
-        }
-    }
-
+    
     private void ShowtableLocations(String s) {
         DefaultTableModel model = (DefaultTableModel) tablelocation.getModel();
         Object[] row = new Object[7];
         List<Location> Locations = new ArrayList<>();
-        Locations = ilc.search(s);
+        if (s.isEmpty()) {
+            Locations = ilc.getAll();
+        } else {
+            Locations = ilc.search(s);
+        }
+        
         for (int i = 0; i < Locations.size(); i++) {
             row[0] = i + 1;
             row[1] = Locations.get(i).getId();
@@ -93,17 +81,11 @@ public class JILocationView extends javax.swing.JInternalFrame {
         
     }
     
-    private void updateTableLocations() {
-        DefaultTableModel model = (DefaultTableModel) tablelocation.getModel();
-        model.setRowCount(0);
-        ShowtableLocations();
-    }
-
     public void updateTableLocations(String s) {
         DefaultTableModel model = (DefaultTableModel) tablelocation.getModel();
         model.setRowCount(0);
         if (s == "") {
-            ShowtableLocations();
+            ShowtableLocations("");
         }
         ShowtableLocations(s);
     }
@@ -369,7 +351,7 @@ public class JILocationView extends javax.swing.JInternalFrame {
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin ingin menyimpan data? ", "confirm Save ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(null, ilc.save(id.getText(), street.getText(), postal.getText(), city.getText(), province.getText(), countryId));
-                updateTableLocations();
+                updateTableLocations("");
                 resetTextLocations();
             }
         }
@@ -379,7 +361,7 @@ public class JILocationView extends javax.swing.JInternalFrame {
         int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin melakukan delete? ", "confirm delete ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (confirm == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, ilc.delete(id.getText()));
-            updateTableLocations();
+            updateTableLocations("");
             resetTextLocations();
         }
     }//GEN-LAST:event_deletebuttonActionPerformed
