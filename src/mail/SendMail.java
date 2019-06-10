@@ -9,6 +9,7 @@ package mail;
  *
  * @author Sekar Ayu Safitri
  */
+import java.io.File;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -24,7 +25,9 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -32,7 +35,7 @@ import javax.swing.JOptionPane;
  */
 public class SendMail {
 
-    public static void send(String to, String sub, String msg, final String user, final String pass) {
+    public static void send(String email, String msg, final String user, final String pass) {
         Properties props = new Properties();
 
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -51,14 +54,19 @@ public class SendMail {
             Message message = new MimeMessage(session);
 
             message.setFrom(new InternetAddress(user));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject(sub);
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setText(msg);
 
-            DataSource source = new FileDataSource("C:/Users/Sekar Ayu Safitri/Documents/jenius.jpeg");
-            message.setDataHandler(new DataHandler(source));
-            message.setFileName("hayo"); 
+//            JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView());
+//            j.showSaveDialog(null);
+//            File file = j.getSelectedFile();
+//            String dir = file.getAbsolutePath();
+//
+//            message.setText(dir);
 
+//            DataSource source = new FileDataSource("C:/Users/Sekar Ayu Safitri/Documents/jenius.jpeg");
+//            message.setDataHandler(new DataHandler(source));
+//            message.setFileName("hayo"); 
             Transport.send(message);
 
             JOptionPane.showMessageDialog(null, "Email sended!");
