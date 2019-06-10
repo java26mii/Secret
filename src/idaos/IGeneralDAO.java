@@ -23,5 +23,5 @@ public interface IGeneralDAO<T> {
 
     public boolean saveOrDelete(T object, boolean isDelete);
     
-    public boolean register(T object);
+//    public boolean register(T object);
 }

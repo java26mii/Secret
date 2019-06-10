@@ -38,7 +38,8 @@ public class OHibernate {
 //        IEmployeeController eco = new EmployeeController(factory);
 //        IDepartmentController edo = new DepartmentController(factory);
 //        GeneralDAO<Employee> edao = new GeneralDAO<>(factory, Employee.class);
-
+//AccountController ac = new AccountController(factory);
+//        System.out.println(ac.register("120", "sindi", "sindi"));
 //        for (Employee employee : edao.getData("")) {
 //            System.out.println(employee.getFirstName());
 //        }
@@ -243,5 +244,6 @@ public class OHibernate {
         //test delete
 //        System.out.println(edao.saveOrDelete(900, true));
 //        System.out.println(employeeController.delete("900"));
+
     }
 }

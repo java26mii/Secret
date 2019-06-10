@@ -9,7 +9,11 @@ import controllers.AccountController;
 import icontrollers.IAccountController;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import models.Account;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import tools.HibernateUtil;
 
 /**
@@ -18,6 +22,9 @@ import tools.HibernateUtil;
  */
 public class RegisterForm extends javax.swing.JFrame {
 
+//    private SessionFactory factory;
+    private Session session;
+    private Transaction transaction;
     SessionFactory factory = HibernateUtil.getSessionFactory();
     IAccountController iac = new AccountController(factory);
 
@@ -28,29 +35,59 @@ public class RegisterForm extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * Check if password match with confirm password
+     *
+     * @return if 'match' the label will show "match"
+     */
     private boolean cekPassword() {
         String password = String.valueOf(pass.getPassword());
         String repassword = String.valueOf(repass.getPassword());
         boolean result = false;
-
-        if (password.length() == 0) {
-            lblstrength.setText(null);
-        } else if (password.length() < 6) {
-            lblstrength.setText("Low");
-        } else if (password.length() < 8) {
-            lblstrength.setText("Medium");
-        } else {
-            lblstrength.setText("Strong");
-        }
-
         if (password.equals(repassword)) {
             lblmatch.setText("Match");
             result = true;
         } else {
             lblmatch.setText("Not Match");
         }
+        return result;
+    }
+
+    private boolean Validasi(boolean isId) {
+        boolean result = false;
+        session = this.factory.openSession();
+        transaction = session.beginTransaction();
+        String hql = "SELECT COUNT(*) FROM Account WHERE ";
+        if (isId) {
+            hql +=  "id = "+txt_id.getText();
+        }else{
+            hql +=  "username = '"+txt_username.getText()+"'";
+        }
+        try {
+            Query query = session.createQuery(hql);
+            Long count = (Long) query.uniqueResult();
+//            System.out.println(count);
+            if (count != 1) {
+                result = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
 
         return result;
+    }
+
+    public void resetText() {
+        txt_id.setText("");
+        txt_username.setText("");
+        pass.setText("");
+        repass.setText("");
+        register_btn.setEnabled(true);
     }
 
     /**
@@ -85,12 +122,22 @@ public class RegisterForm extends javax.swing.JFrame {
                 txt_idActionPerformed(evt);
             }
         });
+        txt_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_idKeyReleased(evt);
+            }
+        });
 
         jLabel2.setText("Username");
 
         txt_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_usernameActionPerformed(evt);
+            }
+        });
+        txt_username.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_usernameKeyReleased(evt);
             }
         });
 
@@ -169,7 +216,7 @@ public class RegisterForm extends javax.swing.JFrame {
                                         .addComponent(lblstrength, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblmatch, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                        .addComponent(lblmatch, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(register_btn))))
                             .addGroup(layout.createSequentialGroup()
@@ -248,16 +295,34 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_repassKeyReleased
 
     private void register_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_btnActionPerformed
-        System.out.println(txt_id.getText() + txt_username.getText()+String.valueOf(pass.getPassword()));
-        if (txt_id.getText().equals("") || txt_username.getText().equals("")) {
+//        System.out.println(txt_id.getText() + txt_username.getText() + String.valueOf(pass.getPassword()));
+        if (txt_id.getText().equals("") || txt_username.getText().equals("") || pass.getPassword().equals("") || repass.getPassword().equals("")) {
             JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
-        } else {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are You Sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (confirm == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, iac.register(txt_id.getText(), txt_username.getText(), String.valueOf(pass.getPassword())));
-            }
         }
+        if (Validasi(true)) {
+            if (Validasi(false)) {
+                if (cekPassword()) {
+                    JOptionPane.showMessageDialog(null, iac.register(txt_id.getText(), txt_username.getText(), String.valueOf(pass.getPassword())));
+                    resetText();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Password Doesn't Match");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Username Already Exist");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "ID has Registered");
+        }
+        
     }//GEN-LAST:event_register_btnActionPerformed
+
+    private void txt_usernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usernameKeyReleased
+        Validasi(false);
+    }//GEN-LAST:event_txt_usernameKeyReleased
+
+    private void txt_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_idKeyReleased
+        Validasi(true);
+    }//GEN-LAST:event_txt_idKeyReleased
 
     /**
      * @param args the command line arguments

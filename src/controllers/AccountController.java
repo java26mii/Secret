@@ -7,29 +7,33 @@ package controllers;
 
 import daos.GeneralDAO;
 import icontrollers.IAccountController;
+import idaos.IGeneralDAO;
 import java.util.List;
 import models.Account;
 import org.hibernate.SessionFactory;
+import tools.BCrypt;
 
 /**
  *
  * @author HP
  */
 public class AccountController implements IAccountController{
-    private GeneralDAO<Account> gdao;
+    private IGeneralDAO<Account> igdao;
 
     public AccountController(SessionFactory factory) {
-        gdao = new GeneralDAO(factory, Account.class);
+        igdao = new GeneralDAO(factory, Account.class);
     }
     
-
+    public String hash(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
 
     @Override
     public String register (String id, String username, String password) {
         String result = "";
-        
-        Account account = new Account(Integer.parseInt(id), username, password);
-        if (gdao.register(account)) {
+        String pass = hash(password);
+        Account account = new Account(Integer.parseInt(id), username, pass);
+        if (igdao.saveOrDelete(account, false)) {
             result = "Success";
         } else {
             result = "Failed";
