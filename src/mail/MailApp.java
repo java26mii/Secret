@@ -110,8 +110,8 @@ public class MailApp extends JFrame {
                 String subject = sub_text.getText();
                 String message = msg_text.getText();
 
-                String user = "test@gmail.com";
-                String pass = "******";
+                String user = "sekarkyouya@gmail.com";
+                String pass = "****";//password isi sendiri
 
                 SendMail.send(to, subject, message, user, pass);
             }
