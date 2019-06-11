@@ -238,9 +238,6 @@ public class RegisterForm extends javax.swing.JFrame {
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
         LoginForm lf = new LoginForm();
         lf.setVisible(true);
-        lf.pack();
-        lf.setLocationRelativeTo(null);
-        lf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_loginMouseClicked
 
