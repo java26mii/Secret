@@ -25,6 +25,7 @@ public class AccountController implements IAccountController {
 
     private IGeneralDAO<Account> igdao;
     private Session session;
+    
     private Transaction transaction;
     SessionFactory factory = HibernateUtil.getSessionFactory();
 
@@ -52,16 +53,19 @@ public class AccountController implements IAccountController {
     @Override
     public String login(String username, String password) {
         String result = "";
-        boolean validasiUser = Validasi(username, false);
-        String hashed = hash(password);
+        session = this.factory.openSession();
+        transaction = session.beginTransaction();
+        Query query = session.createQuery("SELECT password FROM Account WHERE id = '"+username+"' OR username ='"+username+"'");
+        String hashed = (String) query.uniqueResult();
+        
         boolean cekpassword = BCrypt.checkpw(password, hashed);
-        if (!validasiUser) {
+        if (!Validasi(username, false) || !Validasi(username, true) ) {
             if (cekpassword) {
                 result = "Login Successfull";
-            }else{
+            } else {
                 result = "Login Unsuccessfull, Password Wrong";
             }
-        }else{
+        } else {
             result = "Login Unsuccessfull, Username Wrong";
         }
         return result;

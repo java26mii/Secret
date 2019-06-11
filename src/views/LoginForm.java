@@ -135,6 +135,9 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
         JOptionPane.showMessageDialog(null, iac.login(txt_username.getText(), String.valueOf(txt_password.getPassword())));
+        MainFrame mf = new MainFrame();
+        mf.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_login_btnActionPerformed
 
     /**
