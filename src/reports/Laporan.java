@@ -7,38 +7,66 @@ package reports;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import tools.HibernateUtil;
 
 /**
  *
- * @author Sekar Ayu Safitri
+ * @author Dek Sekar
  */
 public class Laporan {
 
-    static void laporan(String file, int employee_id) {
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        
+    private static Map getParameters(Session session) {
+        Map parameters = new HashMap();
+        parameters.put(JRHibernateQueryExecuterFactory.PARAMETER_HIBERNATE_SESSION, session);
+        parameters.put("Report", "Job");
+        return parameters;
+    }
+
+    public static void fill(String file) {
+        Session session = createSession();
+        Transaction transaction = session.beginTransaction();
+
+        Map params = getParameters(session);
         try {
-            String namafile = "src/report/" + file + ".jasper";
-            File report = new File(namafile);
-            JasperReport jr = (JasperReport) JRLoader.loadObject(report);
-            HashMap param = new HashMap();
-            param.put("employee_id", employee_id);
-            JasperPrint jp = JasperFillManager.fillReport(jr, param);
-            JasperViewer.viewReport(jp);
+            File[] files
+                    = new File[]{
+                        new File("src/reports/" + file + ".jasper")
+                    };
+            for (int i = 0; i < files.length; i++) {
+                File reportFile = files[i];
+                long start = System.currentTimeMillis();
+                JasperFillManager.fillReportToFile(reportFile.getAbsolutePath(), params);
+                System.err.println(
+                        "Report : " + reportFile + ". Filling time : " + (System.currentTimeMillis() - start)
+                );
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal");
+            throw new RuntimeException(e);
         }
+        transaction.rollback();
+        session.close();
+    }
+
+    private static Session createSession() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+        return sessionFactory.openSession();
     }
 
     public static void main(String[] args) {
-        laporan("reportEmployee", 100);
+        fill("report");
     }
 }
