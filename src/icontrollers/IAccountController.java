@@ -13,5 +13,5 @@ import models.Account;
  * @author HP
  */
 public interface IAccountController {
-    public String register (String id, String username, String password);
+    public String register (String id, String username,String email1, String password);
 }

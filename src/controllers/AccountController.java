@@ -29,10 +29,10 @@ public class AccountController implements IAccountController{
     }
 
     @Override
-    public String register (String id, String username, String password) {
+    public String register (String id, String username, String email1, String password) {
         String result = "";
         String pass = hash(password);
-        Account account = new Account(Integer.parseInt(id), username, pass);
+        Account account = new Account(Integer.parseInt(id), username, email1, pass);
         if (igdao.saveOrDelete(account, false)) {
             result = "Success";
         } else {
