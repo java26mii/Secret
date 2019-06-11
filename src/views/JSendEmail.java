@@ -59,7 +59,6 @@ public class JSendEmail extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         btnFile = new javax.swing.JButton();
         btnSend = new javax.swing.JButton();
-        lblFile = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,7 +92,9 @@ public class JSendEmail extends javax.swing.JFrame {
 
         jLabel7.setText(":");
 
-        btnFile.setText("...");
+        btnFile.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnFile.setForeground(new java.awt.Color(153, 153, 153));
+        btnFile.setText("Add File");
         btnFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFileActionPerformed(evt);
@@ -108,45 +109,46 @@ public class JSendEmail extends javax.swing.JFrame {
             }
         });
 
-        lblFile.setText("File");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
+                .addGap(185, 185, 185)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel5)
-                    .addComponent(btnSend))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSend)
+                    .addComponent(jLabel5))
+                .addContainerGap(169, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                    .addComponent(txtEmail)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnFile)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(48, 48, 48))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFile, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(txtEmail))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,17 +160,16 @@ public class JSendEmail extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
                     .addComponent(btnFile)
-                    .addComponent(lblFile))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(btnSend)
-                .addGap(21, 21, 21))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -183,8 +184,8 @@ public class JSendEmail extends javax.swing.JFrame {
         // Mail Authen
         final String auth_host = "smtp.gmail.com";
         final String auth_port = "587";
-        final String auth_email = "sekarkyouya@gmail.com";
-        final String auth_password = "10021997";
+        final String auth_email = "bootcamp.java26@gmail.com";
+        final String auth_password = "Bootcamp26";
 
         final Properties props = new Properties();
         props.put("mail.smtp.host", auth_host);
@@ -205,11 +206,11 @@ public class JSendEmail extends javax.swing.JFrame {
             message.setFrom(new InternetAddress(auth_email));
 
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(txtEmail.getText())); // To
-//            message.setSubject(txtSubject.getText());
+                    InternetAddress.parse(txtEmail.getText())); 
+            message.setSubject("--- Reporting ---");
             MimeBodyPart messageBodyPart = new MimeBodyPart();
 
-            String Attach = lblFile.getText();
+            String Attach = btnFile.getText();
             messageBodyPart.setText(txtMessage.getText());
 
             Multipart multipart = new MimeMultipart();
@@ -241,7 +242,7 @@ public class JSendEmail extends javax.swing.JFrame {
         JFileChooser jfc = new JFileChooser();
         int ret = jfc.showDialog(null, "Choose file");
         if (ret == JFileChooser.APPROVE_OPTION) {
-            lblFile.setText(jfc.getSelectedFile().toString());
+            btnFile.setText(jfc.getSelectedFile().toString());
         }
         getContentPane().add(btnFile);
     }//GEN-LAST:event_btnFileActionPerformed
@@ -292,7 +293,6 @@ public class JSendEmail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblFile;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextArea txtMessage;
     // End of variables declaration//GEN-END:variables
