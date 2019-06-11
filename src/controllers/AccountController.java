@@ -10,26 +10,34 @@ import icontrollers.IAccountController;
 import idaos.IGeneralDAO;
 import java.util.List;
 import models.Account;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import tools.BCrypt;
+import tools.HibernateUtil;
 
 /**
  *
  * @author HP
  */
-public class AccountController implements IAccountController{
+public class AccountController implements IAccountController {
+
     private IGeneralDAO<Account> igdao;
+    private Session session;
+    private Transaction transaction;
+    SessionFactory factory = HibernateUtil.getSessionFactory();
 
     public AccountController(SessionFactory factory) {
         igdao = new GeneralDAO(factory, Account.class);
     }
-    
+
     public String hash(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     @Override
-    public String register (String id, String username, String password) {
+    public String register(String id, String username, String password) {
         String result = "";
         String pass = hash(password);
         Account account = new Account(Integer.parseInt(id), username, pass);
@@ -40,5 +48,45 @@ public class AccountController implements IAccountController{
         }
         return result;
     }
-    
+
+    @Override
+    public String login(String username, String password) {
+        
+        String result = "";
+        String hashed = hash(password);
+        System.out.println(BCrypt.checkpw(password, hashed));
+
+        return result;
+    }
+
+    @Override
+    public boolean Validasi(Object keyword, boolean isId) {
+        boolean result = false;
+        session = this.factory.openSession();
+        transaction = session.beginTransaction();
+        String hql = "SELECT COUNT(*) FROM Account WHERE ";
+        if (isId) {
+            hql += "id = " + keyword;
+        } else {
+            hql += "username = '" + keyword + "'";
+        }
+        try {
+            Query query = session.createQuery(hql);
+            Long count = (Long) query.uniqueResult();
+//            System.out.println(count);
+            if (count != 1) {
+                result = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+
+        return result;
+    }
+
 }

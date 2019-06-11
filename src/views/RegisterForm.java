@@ -53,35 +53,6 @@ public class RegisterForm extends javax.swing.JFrame {
         return result;
     }
 
-    private boolean Validasi(boolean isId) {
-        boolean result = false;
-        session = this.factory.openSession();
-        transaction = session.beginTransaction();
-        String hql = "SELECT COUNT(*) FROM Account WHERE ";
-        if (isId) {
-            hql +=  "id = "+txt_id.getText();
-        }else{
-            hql +=  "username = '"+txt_username.getText()+"'";
-        }
-        try {
-            Query query = session.createQuery(hql);
-            Long count = (Long) query.uniqueResult();
-//            System.out.println(count);
-            if (count != 1) {
-                result = true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-
-        return result;
-    }
-
     public void resetText() {
         txt_id.setText("");
         txt_username.setText("");
@@ -291,9 +262,10 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void register_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_btnActionPerformed
 //        System.out.println(txt_id.getText() + txt_username.getText() + String.valueOf(pass.getPassword()));
-        
-        if (Validasi(true)) {
-            if (Validasi(false)) {
+        boolean validasiId = iac.Validasi(txt_id.getText(), true);
+        boolean validasiUser = iac.Validasi(txt_username.getText(), false);
+        if (validasiId) {
+            if (validasiUser) {
                 if (cekPassword()) {
                     JOptionPane.showMessageDialog(null, iac.register(txt_id.getText(), txt_username.getText(), String.valueOf(pass.getPassword())));
                     resetText();
@@ -303,22 +275,22 @@ public class RegisterForm extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Username Already Exist");
             }
-        }else{
+        } else {
             if (txt_id.getText().equals("") || txt_username.getText().equals("") || pass.getPassword().equals("") || repass.getPassword().equals("")) {
-            JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
-        }else{
-            JOptionPane.showMessageDialog(null, "ID has Registered");
+                JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
+            } else {
+                JOptionPane.showMessageDialog(null, "ID has Registered");
             }
         }
-        
+
     }//GEN-LAST:event_register_btnActionPerformed
 
     private void txt_usernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usernameKeyReleased
-        Validasi(false);
+//        
     }//GEN-LAST:event_txt_usernameKeyReleased
 
     private void txt_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_idKeyReleased
-        Validasi(true);
+//        Validasi(true);
     }//GEN-LAST:event_txt_idKeyReleased
 
     /**
