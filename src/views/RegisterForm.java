@@ -18,7 +18,7 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author HP
+ * @author Sindi
  */
 public class RegisterForm extends javax.swing.JFrame {
 
@@ -245,7 +245,7 @@ public class RegisterForm extends javax.swing.JFrame {
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblstrength)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(repass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -255,7 +255,7 @@ public class RegisterForm extends javax.swing.JFrame {
                     .addComponent(lblmatch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(login)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -296,9 +296,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void register_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_btnActionPerformed
 //        System.out.println(txt_id.getText() + txt_username.getText() + String.valueOf(pass.getPassword()));
-        if (txt_id.getText().equals("") || txt_username.getText().equals("") || pass.getPassword().equals("") || repass.getPassword().equals("")) {
-            JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
-        }
+        
         if (Validasi(true)) {
             if (Validasi(false)) {
                 if (cekPassword()) {
@@ -311,7 +309,11 @@ public class RegisterForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Username Already Exist");
             }
         }else{
+            if (txt_id.getText().equals("") || txt_username.getText().equals("") || pass.getPassword().equals("") || repass.getPassword().equals("")) {
+            JOptionPane.showMessageDialog(null, "DATA TIDAK BOLEH KOSONG");
+        }else{
             JOptionPane.showMessageDialog(null, "ID has Registered");
+            }
         }
         
     }//GEN-LAST:event_register_btnActionPerformed
