@@ -30,7 +30,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
     }
-    
+
     private Session session;
     private Transaction transaction;
     SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -128,11 +128,9 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerMouseClicked
-       RegisterForm rf = new RegisterForm();
-       rf.setVisible(true);
-       rf.pack();rf.setLocationRelativeTo(null);
-       rf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       this.dispose();
+        RegisterForm rf = new RegisterForm();
+        rf.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_registerMouseClicked
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed

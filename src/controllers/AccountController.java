@@ -51,11 +51,19 @@ public class AccountController implements IAccountController {
 
     @Override
     public String login(String username, String password) {
-        
         String result = "";
+        boolean validasiUser = Validasi(username, false);
         String hashed = hash(password);
-        System.out.println(BCrypt.checkpw(password, hashed));
-
+        boolean cekpassword = BCrypt.checkpw(password, hashed);
+        if (!validasiUser) {
+            if (cekpassword) {
+                result = "Login Successfull";
+            }else{
+                result = "Login Unsuccessfull, Password Wrong";
+            }
+        }else{
+            result = "Login Unsuccessfull, Username Wrong";
+        }
         return result;
     }
 
