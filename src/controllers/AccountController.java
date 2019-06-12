@@ -55,7 +55,7 @@ public class AccountController implements IAccountController {
         String result = "";
         session = this.factory.openSession();
         transaction = session.beginTransaction();
-        Query query = session.createQuery("SELECT password FROM Account WHERE id = '"+username+"' OR username ='"+username+"'");
+        Query query = session.createQuery("SELECT password FROM Account WHERE username ='"+username+"'");
         String hashed = (String) query.uniqueResult();
         
         boolean cekpassword = BCrypt.checkpw(password, hashed);
