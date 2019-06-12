@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d9e7893-1654-44db-a900-a5970e286fd6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="hql">
+		<![CDATA[from Employee Employee order by employee_id desc]]>
+	</queryString>
+	<field name="account" class="models.Account"/>
+	<field name="commissionPct" class="java.math.BigDecimal"/>
+	<field name="department" class="models.Department"/>
+	<field name="departmentList" class="java.util.List"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="employeeList" class="java.util.List"/>
+	<field name="firstName" class="java.lang.String"/>
+	<field name="hireDate" class="java.util.Date"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="job" class="models.Job"/>
+	<field name="lastName" class="java.lang.String"/>
+	<field name="manager" class="models.Employee"/>
+	<field name="phoneNumber" class="java.lang.String"/>
+	<field name="salary" class="java.math.BigDecimal"/>
+	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{salary}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="119" y="10" width="313" height="45" uuid="17e81061-c05e-4826-9cd6-2eb7cdc4b3c9"/>
+				<textElement>
+					<font fontName="Monospaced" size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN KEUANGAN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="70" height="20" uuid="ff9922a3-d90d-447d-822e-499f46fb17cb"/>
+				<text><![CDATA[Employee ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="2" width="61" height="20" uuid="ff1c0e99-b51f-4017-af5d-67cf4f3e3787"/>
+				<text><![CDATA[Last Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="2" width="56" height="20" uuid="ddc8ba29-1c35-4b7f-b57b-fb883a279320"/>
+				<text><![CDATA[First Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="2" width="99" height="20" uuid="484b49d9-4f30-44a0-aa17-5c1a0463ac56"/>
+				<text><![CDATA[Phone Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="2" width="71" height="20" uuid="03f926af-1db8-4034-9622-1bda267af5f2"/>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="2" width="68" height="20" uuid="967b97b5-fb56-4660-a3fa-7d3ffc79bac1"/>
+				<text><![CDATA[Salary]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="35" height="20" uuid="7a8a789a-cc19-4bfe-86eb-640cb5000666"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="3" width="75" height="20" uuid="d06ffee5-9e30-45a2-93fe-cf7edc040620"/>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="3" width="69" height="20" uuid="69f9508e-6233-4bd4-92e7-1057c5a45056"/>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="3" width="100" height="20" uuid="dd5c1667-ddbb-4e1f-ae19-dd526f271b3e"/>
+				<textFieldExpression><![CDATA[$F{phoneNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="0" width="67" height="20" uuid="9ad9abec-d7d4-4faa-ba61-6932ebd2d95e"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="0" width="68" height="20" uuid="abfe26e6-5161-432e-935b-1a273eb9d228"/>
+				<textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="432" y="15" width="68" height="20" uuid="0ddd1182-1291-459d-9e37-bc38a9a207b0"/>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="332" y="15" width="84" height="30" uuid="c71e8cb6-5629-40ef-aab3-8727dbed4c61"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Salary]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

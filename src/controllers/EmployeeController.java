@@ -3,6 +3,7 @@ package controllers;
 import icontrollers.IEmployeeController;
 import idaos.IGeneralDAO;
 import daos.GeneralDAO;
+import idaos.IReportDAO;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ public class EmployeeController implements IEmployeeController {
     Date date = new Date(); // this object contains the current date value 
     SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
     private IGeneralDAO<Employee> gdao;
+    private IReportDAO redao;
 
     public EmployeeController(SessionFactory factory) {
         gdao = new GeneralDAO(factory, Employee.class);
@@ -67,5 +69,12 @@ public class EmployeeController implements IEmployeeController {
 //        }else{
 //            return result
 //        }    
+
+
+
+    @Override
+    public String Report(String file) {
+        return redao.Report("");
+    }
 
 }

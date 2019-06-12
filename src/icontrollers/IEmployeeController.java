@@ -27,5 +27,7 @@ public interface IEmployeeController {
    
     
     public String delete(String id);
+    
+    public String Report (String file);
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,27 +39,12 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-<hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
-    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
-    <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
-    <property name="hibernate.connection.username">hr</property>
-    <property name="hibernate.connection.password">java26</property>
-    <property name="hibernate.default_schema">hr</property>
-    <property name="hibernate.show_sql">false</property>
-    <property name="hibernate.enable_lazy_load_no_trans">true</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.connection.autocommit">true</property>
-    <mapping class="models.Region"/>
-    <mapping class="models.Country"/>
-    <mapping class="models.Department"/>
-    <mapping class="models.Employee"/>
-    <mapping class="models.Location"/>
-    <mapping class="models.Job"/>
-    <mapping class="models.Account"/>
-    <mapping resource="../employee.hbm.xml"/>
-    <mapping resource="employee.hbm.xml"/>
-    <mapping/>
-  </session-factory>
-</hibernate-configuration>
+<hibernate-reverse-engineering>
+  <schema-selection/>
+  <table-filter match-name="JOBS"/>
+  <table-filter match-name="DEPARTMENTS"/>
+  <table-filter match-name="REGIONS"/>
+  <table-filter match-name="EMPLOYEES"/>
+  <table-filter match-name="COUNTRIES"/>
+  <table-filter match-name="LOCATIONS"/>
+</hibernate-reverse-engineering>
