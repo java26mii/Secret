@@ -51,12 +51,13 @@ public class OHibernate {
 //            System.out.println(dep.getId());
 //        }
 
-//        GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
-//        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
-//        for (Region region : gdao.getData("")) {
+        GeneralDAO<Region> gdao = new GeneralDAO(factory, Region.class);
+////        GeneralDAO<Location> ldao = new GeneralDAO(factory, Location.class);
+//        for (Region region : gdao.getData("Asia")) {
 //            System.out.println(region.getName());
 //            System.out.println(region.getId());
 //        }
+//        Region r = (Region) gdao.getData("");
         /* insert */
 //        System.out.println(gdao.saveOrDelete(new Region(new BigDecimal(40), "Antartica"), false));
 

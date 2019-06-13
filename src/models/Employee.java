@@ -46,6 +46,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByCommissionPct", query = "SELECT e FROM Employee e WHERE e.commissionPct = :commissionPct")})
 public class Employee implements Serializable {
 
+ 
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private Account account;
 
@@ -252,5 +254,7 @@ public class Employee implements Serializable {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+
 
 }

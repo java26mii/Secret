@@ -12,6 +12,7 @@ import daos.GeneralDAO;
 import icontrollers.IDepartmentController;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Department;
@@ -39,6 +40,11 @@ public class JIDepartment extends javax.swing.JInternalFrame {
     public JIDepartment() {
         initComponents();
         showTableDepartment();
+        tableDepartment.setShowGrid(false);
+//        tableDepartment.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+//        tableDepartment.setShowHorizontalLines(false);
+//        tableDepartment.setShowVerticalLines(false);
+//        
         nomor();
         getManager();
         getLoc();

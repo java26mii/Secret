@@ -20,10 +20,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ASUS
+ * @author HP
  */
 @Entity
-@Table(name = "ACCOUNT")
+@Table(name = "ACCOUNTS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
@@ -44,7 +44,7 @@ public class Account implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
     @JoinColumn(name = "ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
-    @OneToOne(optional = true, fetch = FetchType.LAZY)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
 
     public Account() {

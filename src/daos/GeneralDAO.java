@@ -134,4 +134,40 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
 //
 //        return result;
 //    }
+    @Override
+    public boolean validasiRegister(Object keyword, boolean isId) {
+        boolean result = false;
+        session = this.factory.openSession();
+        transaction = session.beginTransaction();
+        String hql = "SELECT COUNT(*) FROM Account WHERE ";
+        if (isId) {
+            hql += "id = " + keyword;
+        } else {
+            hql += "username = '" + keyword + "'";
+        }
+        try {
+            Query query = session.createQuery(hql);
+            Long count = (Long) query.uniqueResult();
+//            System.out.println(count);
+            if (count != 1) {
+                result = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean validasiLogin(Object keyword, Object password, boolean isEmail) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }

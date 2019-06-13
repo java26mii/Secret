@@ -22,6 +22,10 @@ public interface IGeneralDAO<T> {
     public List<T> getData(Object keyword);
 
     public boolean saveOrDelete(T object, boolean isDelete);
-    
+
+    public boolean validasiRegister(Object keyword, boolean isId);
+
+    public boolean validasiLogin(Object keyword, Object password, boolean isEmail);
+
 //    public boolean register(T object);
 }
